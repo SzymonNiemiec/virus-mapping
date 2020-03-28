@@ -17,7 +17,8 @@ function AppRouter({ isAuthenticated, user, loading }) {
         display: 'flex',
         flexDirection: 'row',
         backgroundColor: '#FAFCFF',
-        minHeight: 'calc(100vh - 60px)'
+        minHeight: 'calc(100vh - 60px)',
+        justifyContent: 'center'
       }}>
           {/* 
         {user.activeRole === "Doctor" ? <AuthenticatedRoute path="/(|calendar|patients)/:patientId?/:currentTab?" isAuthenticated={isAuthenticated} loading={loading} component={() => (

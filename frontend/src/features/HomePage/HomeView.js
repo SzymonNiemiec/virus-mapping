@@ -3,8 +3,12 @@ import styled from "styled-components";
 import HeaderImg from "../Shared/assets/header-img.svg";
 import Button from '../Shared/Button';
 import { theme } from "../Shared/theme";
+import FoodImg from "../Shared/assets/eating-together.svg";
+import AirImg from "../Shared/assets/air.svg";
+import HumansImg from "../Shared/assets/hang-out.svg";
 
-const HomeView = () => (
+
+const HomeView = () => (<Wrapper>
     <Section header>
         <Column>
         <HeadingTop>COVID-19</HeadingTop>
@@ -17,10 +21,39 @@ const HomeView = () => (
         </Column>
        
     </Section>
+
+    <Section spreadTitle>
+        <HeadingTitle>How Can It Spreads</HeadingTitle>
+        <HeadingDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis. Nullam ut posuere erat, vel auctor mauris. Curabitur eu auctor lore</HeadingDesc>
+    </Section>
+    <Section spreadContent>
+        <Column>
+        <SpreadImage src={FoodImg}/>
+        <SpreadTitle>Contaminated Objects & Substances</SpreadTitle>
+        <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
+        </Column>
+        <Column>
+        <SpreadImage src={AirImg}/>
+        <SpreadTitle>Air Transmission of Droplets</SpreadTitle>
+        <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
+        </Column>
+        <Column>
+        <SpreadImage src={HumansImg}/>
+        <SpreadTitle>Transmission Among Humans</SpreadTitle>
+        <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
+        </Column>
+    </Section>
+    </Wrapper>
 )   
 
 
 export default HomeView;
+
+const Wrapper = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+`
 
 const Section = styled.div`
 display: flex;
@@ -28,14 +61,21 @@ margin: 0 auto;
 max-width: 1140px;
 flex-direction: column;
 margin: 20px;
-${({header}) => header && `
- margin-top: 2rem;`}
+
  ${theme.mq.tablet} {
    flex-direction: row;
- }
+   margin: 2rem auto 0;
+   ${({spreadTitle}) => spreadTitle && `
+flex-direction: column;
+`}
+ };
+
 `
 const Column = styled.div`
 width: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
 `
 
 const HeadingTop = styled.h2`
@@ -70,4 +110,29 @@ display: block;
 const HeaderButton = styled(Button)`
 margin: 20px auto;
 display: block;
+`
+
+const HeadingTitle = styled.h2`
+text-align: center;
+`
+
+const HeadingDesc = styled.p`
+text-align: center;
+width: 80%;
+margin: 0 auto;
+`
+
+const SpreadImage = styled.img`
+width: 150px;
+    height: 150px;
+    margin: 0 auto;
+`
+
+const SpreadTitle = styled.h4`
+text-align: center;
+color: ${theme.secondary};
+`
+
+const SpreadDesc = styled.p`
+text-align: center;
 `
