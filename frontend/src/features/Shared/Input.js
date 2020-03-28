@@ -11,6 +11,9 @@ const Input = ({
   value,
   placeholder,
   error,
+  min,
+  max,
+  step,
   className,
   checkboxText,
   radioOptions,
@@ -59,6 +62,9 @@ const Input = ({
             placeholder={placeholder}
             className={className}
             disabled={disabled}
+            min={min}
+                max={max}
+                step={step}
           />
           {type === 'checkbox' &&
             <>
@@ -93,6 +99,7 @@ const StyledInput = styled.input`
       width: ${({ size }) => size ? size : '100%'};
       height: ${({ size }) => size};
       margin: 2px 0 2px 0;
+      min-width: 80px;
   &:focus {
       border-color: ${({ theme }) => theme.primary};
       border-width: 2px;

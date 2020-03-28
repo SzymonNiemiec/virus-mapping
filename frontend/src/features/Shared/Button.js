@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = ({ type, variant, size, onClick, children, className }) => (
+const Button = ({ type, variant, size, onClick, children, className,  }) => (
     <StyledButton className={className} type={type ? type : "button"} variant={variant ? variant : "default"} size={size} onClick={onClick}>
     {children}
     </StyledButton>

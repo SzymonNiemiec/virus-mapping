@@ -8,6 +8,7 @@ import GlobalStyle from '../Shared/GlobalStyle';
 // import DoctorDashboardContainer from "../DashboardPage/DoctorDashboard/DoctorDashboardContainer";
 import HomeContainer from '../HomePage/HomeContainer';
 import LoginContainer from '../LoginPage/LoginContainer';
+import QuestionnaireContainer from "../QuestionnairePage/QuestionnaireContainer";
 
 function AppRouter({ isAuthenticated, user, loading }) {
   return (
@@ -41,6 +42,7 @@ function AppRouter({ isAuthenticated, user, loading }) {
         <Switch>
             <Route path="/" exact component={HomeContainer} />
             <Route path="/login" exact component={LoginContainer} />
+            <Route path="/questionnaire" exact component={QuestionnaireContainer} />
           {/* <AuthenticatedRoute path="/" exact component={user.activeRole === "Doctor" ? DoctorDashboardContainer : user.activeRole === "Admin" ? AdminDashboardContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />
           <AuthenticatedRoute path="/calendar" exact component={user.activeRole === "Doctor" ? DoctorCalendarContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />
           <AuthenticatedRoute path="/patients/:patientId?/:currentTab?" exact component={user.activeRole === "Doctor" ? DoctorPatientInfoContainer : ReceptionistPatientInfoContainer} isAuthenticated={isAuthenticated} loading={loading} />
