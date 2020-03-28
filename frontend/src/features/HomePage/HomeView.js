@@ -6,6 +6,7 @@ import { theme } from "../Shared/theme";
 import FoodImg from "../Shared/assets/eating-together.svg";
 import AirImg from "../Shared/assets/air.svg";
 import HumansImg from "../Shared/assets/hang-out.svg";
+import {Link } from "react-router-dom";
 
 
 const HomeView = () => (<Wrapper>
@@ -14,7 +15,7 @@ const HomeView = () => (<Wrapper>
         <HeadingTop>COVID-19</HeadingTop>
         <HeadingMain>Keep Yourself Home Quarantined</HeadingMain>
         <HeadingSub>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis. Nullam ut posuere erat, vel auctor mauris. Curabitur eu auctor lore</HeadingSub>
-        <HeaderButton variant="primary" size="big">Help to track virus</HeaderButton>
+        <StyledLink to="login"><HeaderButton variant="primary" size="big">Help to track virus</HeaderButton></StyledLink>
         </Column>
         <Column>
         <HeaderImage src={HeaderImg} />
@@ -98,7 +99,7 @@ const HeadingSub = styled.p`
 line-height: 2;
 font-size: 0.8rem;
 ${theme.mq.tablet} {
-    font-size: 2rem;
+    font-size: 1.2rem;
 }
 `
 
@@ -135,4 +136,7 @@ color: ${theme.secondary};
 
 const SpreadDesc = styled.p`
 text-align: center;
+`
+const StyledLink = styled(Link)`
+text-decoration: none;
 `
