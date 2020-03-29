@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import SidebarView from './SidebarView'
 
 const SidebarContainer = () => {
     return (
-        <div>Hello Sidebar</div>
+        <SidebarView />
     )
 }
 

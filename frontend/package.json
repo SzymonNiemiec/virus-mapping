@@ -10,6 +10,7 @@
     "formik": "^2.1.4",
     "pure-react-carousel": "^1.26.1",
     "react": "^16.13.1",
+    "react-circular-progressbar": "^2.0.3",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
     "react-router-dom": "^5.1.2",

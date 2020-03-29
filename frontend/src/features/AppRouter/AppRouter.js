@@ -24,7 +24,7 @@ function AppRouter({ isAuthenticated, user, loading }) {
         minHeight: 'calc(100vh - 60px)'
       }}>
           
-        {<Route path="/(|questionnaire|friends)" component={() => (
+        {<Route path="/(questionnaire|friends)" component={() => (
           <SidebarWrapper>
             <SidebarContainer />
           </SidebarWrapper>
