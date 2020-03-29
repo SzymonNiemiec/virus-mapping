@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import styled from "styled-components";
@@ -9,7 +9,7 @@ import axios from "axios";
 import ContactPeopleModal from "./Modals/ContactPeopleModal";
 
 const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) => {
-    
+    const [coughSet,setCoughSet] = useState(false);
     return (
         <Wrapper>
             <ContactPeopleModal 
@@ -23,7 +23,7 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) =
                     tiredness: false,
                     hasContact: false
                 }}
-                enableReinitialize
+                enableReinitialize={true}
                 // validationSchema={}
                 onSubmit={(values) => {
                     delete values.hasContact;
@@ -44,7 +44,7 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) =
                 }) => {
                     const isDisabled = ((!values.cough && innerCurSlide === 4) || (values.cough && innerCurSlide === 5));
                     return (
-                        <Form onSubmit={handleSubmit}>
+                        <Form onSubmit={handleSubmit} >
                             <CarouselProvider
                                 naturalSlideWidth={500}
                                 naturalSlideHeight={500}
@@ -71,8 +71,8 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) =
                                         <QuestionCounter>Question 3/6</QuestionCounter>
                                         <Question>Do you have a cough?</Question>
                                         <ButtonWrapper>
-                                            <DecisionButton type="button" active={values.cough ? true : false} onClick={() => setFieldValue('cough', true)}>Yes</DecisionButton>
-                                            <DecisionButton type="button" active={values.cough ? false : true} onClick={() => setFieldValue('cough', false)}>No</DecisionButton>
+                                            <DecisionButton type="button" active={values.cough ? true : false} onClick={() => {setCoughSet(true) ; setFieldValue('cough', true); }}>Yes</DecisionButton>
+                                            <DecisionButton type="button" active={values.cough ? false : true} onClick={() => { setCoughSet(false) ;setFieldValue('cough', false);}}>No</DecisionButton>
                                         </ButtonWrapper>
                                     </StyledSlide>
                                     {values.cough && <StyledSlide index={3}>
@@ -104,20 +104,22 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) =
                                 <ButtonWrapper>
                                     <StyledButtonBack onClick={() => {
                                         setInnerCurSlide(innerCurSlide - 1);
-                                        innerCurSlide === 3 ?
-                                            values.cough ?
-                                                questionChange(innerCurSlide - 1)
-                                                : 
-                                                questionChange(innerCurSlide - 2)
-                                            : 
-                                            questionChange(innerCurSlide - 1) 
+                                        if(innerCurSlide > 3 && !coughSet){
+                                            questionChange(innerCurSlide - 2)
+                                        } else {
+                                            questionChange(innerCurSlide - 1)
+                                        }
                                         }}
                                     >Back</StyledButtonBack>
                                     <StyledButtonNext
                                         onClick={() => {
                                             setInnerCurSlide(innerCurSlide + 1);
-                                            console.log(values.cough)
-                                            questionChange(innerCurSlide + 1)
+                                            console.log(coughSet)
+                                            if(innerCurSlide > 1 && !coughSet){
+                                                questionChange(innerCurSlide + 2)
+                                            } else {
+                                                questionChange(innerCurSlide + 1)
+                                            }
                                         }}
                                     disabled={isDisabled ? true : false}>Next</StyledButtonNext>
                                 </ButtonWrapper>
