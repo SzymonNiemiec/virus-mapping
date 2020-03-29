@@ -6,32 +6,39 @@ const AUTHENTICATE_USER_FAIL = "AUTHENTICATE_USER_FAIL";
 
 //ACTIONS-------------------------------------
 
-export const authenticateUser = user => async dispatch => {
-  dispatch(requestAuthentication());
-  try {
-    const response = await axios.post(
-      "/user/login",
-      user
-    );
-    dispatch(authenticatedSuccess(response.data.user));
-  } catch (error) {
-    dispatch(authenticationFail(error));
-    throw error.response.data.message;
-  }
-};
+// export const authenticateUser = user => async dispatch => {
+//   dispatch(requestAuthentication());
+//   try {
+//     const response = await axios.post(
+//       "/user/login",
+//       user
+//     );
+//     dispatch(authenticatedSuccess(response.data.user));
+//   } catch (error) {
+//     dispatch(authenticationFail(error));
+//     throw error.response.data.message;
+//   }
+// };
 
-const requestAuthentication = () => ({
-  type: AUTHENTICATE_USER_REQUEST
-});
+// const requestAuthentication = () => ({
+//   type: AUTHENTICATE_USER_REQUEST
+// });
 
-const authenticatedSuccess = user => ({
-  type: AUTHENTICATE_USER_SUCCESS,
-  payload: user
-});
+// const authenticatedSuccess = user => ({
+//   type: AUTHENTICATE_USER_SUCCESS,
+//   payload: user
+// });
 
-const authenticationFail = error => ({
-  type: AUTHENTICATE_USER_FAIL,
-  payload: error
+// const authenticationFail = error => ({
+//   type: AUTHENTICATE_USER_FAIL,
+//   payload: error
+// })
+
+const SET_USER_FROM_FACEBOOK = "SET_USER_FROM_FACEBOOK"
+
+export const setUserFromFacebook = user => ({
+    type: SET_USER_FROM_FACEBOOK,
+    payload: user
 })
 
 const initialState = {
@@ -43,6 +50,14 @@ const initialState = {
 //AUTH REDUCER--------------------------------------------------
 export default (state = initialState, action) => {
   switch (action.type) {
+
+    case SET_USER_FROM_FACEBOOK:
+        return {
+            ...state,
+            isAuthenticated: true,
+            user: action.payload,
+            loading: false
+        } 
     //authenticate user call
     case AUTHENTICATE_USER_REQUEST:
       return {
