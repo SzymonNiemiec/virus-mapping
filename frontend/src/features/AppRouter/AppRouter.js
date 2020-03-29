@@ -2,17 +2,16 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import GlobalStyle from '../Shared/GlobalStyle';
-// import AuthenticatedRoute from "./AuthenticatedRoute";
-// import UnauthenticatedRoute from "./UnauthenticatedRoute";
-// import NavigationContainer from "../Navigation/NavigationContainer";
-// import DoctorDashboardContainer from "../DashboardPage/DoctorDashboard/DoctorDashboardContainer";
+import AuthenticatedRoute from "./AuthenticatedRoute";
+import UnauthenticatedRoute from "./UnauthenticatedRoute";
 import HomeContainer from '../HomePage/HomeContainer';
 import LoginContainer from '../LoginPage/LoginContainer';
 import QuestionnaireContainer from "../QuestionnairePage/QuestionnaireContainer";
 import SidebarContainer from '../Sidebar/SidebarContainer';
 import FriendsContainer from '../Friends/FriendsContainer';
+import {connect} from 'react-redux';
 
-function AppRouter({ isAuthenticated, user, loading }) {
+function AppRouter({ isAuth, user, loading }) {
   return (
     <Router>
       <GlobalStyle />
@@ -34,9 +33,9 @@ function AppRouter({ isAuthenticated, user, loading }) {
 
         <Switch>
             <Route path="/" exact component={HomeContainer} />
-            <Route path="/login" exact component={LoginContainer} />
-            <Route path="/questionnaire" exact component={QuestionnaireContainer} />
-            <Route path="/friends" exact component={FriendsContainer} />
+            <UnauthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/login" exact component={LoginContainer} />
+            <AuthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/questionnaire" exact component={QuestionnaireContainer} />
+            <AuthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/friends" exact component={FriendsContainer} />
           {/* <AuthenticatedRoute path="/" exact component={user.activeRole === "Doctor" ? DoctorDashboardContainer : user.activeRole === "Admin" ? AdminDashboardContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />
           <AuthenticatedRoute path="/calendar" exact component={user.activeRole === "Doctor" ? DoctorCalendarContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />
           <AuthenticatedRoute path="/patients/:patientId?/:currentTab?" exact component={user.activeRole === "Doctor" ? DoctorPatientInfoContainer : ReceptionistPatientInfoContainer} isAuthenticated={isAuthenticated} loading={loading} />
@@ -57,7 +56,21 @@ function AppRouter({ isAuthenticated, user, loading }) {
 }
 
 
-export default AppRouter;
+const mapStateToProps = state => ({
+  isAuth: state.authentication.isAuthenticated,
+  loading: state.authentication.isLoading
+});
+
+const mapDispatchToProps = dispatch => {
+  return {
+  };
+};
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppRouter);
 
 
 const SidebarWrapper = styled.div`

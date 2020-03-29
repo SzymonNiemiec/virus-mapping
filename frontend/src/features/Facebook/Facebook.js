@@ -3,7 +3,7 @@ import FacebookLogin from 'react-facebook-login';
 import {connect} from 'react-redux';
 import {setUserFromFacebook} from '../../redux/modules/authentication'
 
-const Facebook = ({setUserFromFacebook,auth}) => {
+const Facebook = ({setUserFromFacebook}) => {
 
     const responseFacebook = response => {
         if(response.email){
@@ -15,9 +15,7 @@ const Facebook = ({setUserFromFacebook,auth}) => {
     }
 
     return (
-        !auth.isAuthenticated ?
-            <FacebookLogin
-            
+        <FacebookLogin 
             textButton="Facebook"
                 appId="166155937788508"
                 autoLoad={true}
@@ -25,14 +23,11 @@ const Facebook = ({setUserFromFacebook,auth}) => {
                 scope="user_friends"
                 onClick={componentClicked}
                 callback={responseFacebook} />
-            :
-            <div>loggedIn</div>
     )
 
 }
 
 const mapStateToProps = state => ({
-    auth: state.authentication
   });
   
   const mapDispatchToProps = dispatch => {
