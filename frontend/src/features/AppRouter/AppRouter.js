@@ -9,6 +9,8 @@ import GlobalStyle from '../Shared/GlobalStyle';
 import HomeContainer from '../HomePage/HomeContainer';
 import LoginContainer from '../LoginPage/LoginContainer';
 import QuestionnaireContainer from "../QuestionnairePage/QuestionnaireContainer";
+import SidebarContainer from '../Sidebar/SidebarContainer';
+import FriendsContainer from '../Friends/FriendsContainer';
 
 function AppRouter({ isAuthenticated, user, loading }) {
   return (
@@ -19,23 +21,14 @@ function AppRouter({ isAuthenticated, user, loading }) {
         display: 'flex',
         flexDirection: 'row',
         backgroundColor: '#FAFCFF',
-        minHeight: 'calc(100vh - 60px)',
-        justifyContent: 'center'
+        minHeight: 'calc(100vh - 60px)'
       }}>
-          {/* 
-        {user.activeRole === "Doctor" ? <AuthenticatedRoute path="/(|calendar|patients)/:patientId?/:currentTab?" isAuthenticated={isAuthenticated} loading={loading} component={() => (
+          
+        {<Route path="/(|questionnaire|friends)" component={() => (
           <SidebarWrapper>
-            <DoctorSidebarContainer />
+            <SidebarContainer />
           </SidebarWrapper>
-        )} /> : user.activeRole === "Registry" ? <AuthenticatedRoute path="/(|patients)/:patientId?/:currentTab?" isAuthenticated={isAuthenticated} loading={loading} component={() => (
-          <SidebarWrapper>
-            <ReceptionistSidebarContainer />
-          </SidebarWrapper>
-        )} /> : <AuthenticatedRoute path="/(|employees|payments|healthcenters|statistics|profile)/" isAuthenticated={isAuthenticated} loading={loading} component={() => (
-          <SidebarWrapper>
-            <AdminSidebarContainer />
-          </SidebarWrapper>
-        )} />} */}
+        )} />}
 
 
 
@@ -43,6 +36,7 @@ function AppRouter({ isAuthenticated, user, loading }) {
             <Route path="/" exact component={HomeContainer} />
             <Route path="/login" exact component={LoginContainer} />
             <Route path="/questionnaire" exact component={QuestionnaireContainer} />
+            <Route path="/friends" exact component={FriendsContainer} />
           {/* <AuthenticatedRoute path="/" exact component={user.activeRole === "Doctor" ? DoctorDashboardContainer : user.activeRole === "Admin" ? AdminDashboardContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />
           <AuthenticatedRoute path="/calendar" exact component={user.activeRole === "Doctor" ? DoctorCalendarContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />
           <AuthenticatedRoute path="/patients/:patientId?/:currentTab?" exact component={user.activeRole === "Doctor" ? DoctorPatientInfoContainer : ReceptionistPatientInfoContainer} isAuthenticated={isAuthenticated} loading={loading} />
