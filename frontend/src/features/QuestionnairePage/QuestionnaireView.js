@@ -17,8 +17,10 @@ import ContactPeopleModal from "./Modals/ContactPeopleModal";
 const QuestionnaireView = ({
   innerCurSlide,
   setInnerCurSlide,
+  questionChange,
+  setContactPeopleModal,
   isContactPeopleModalOn,
-  setContactPeopleModal
+  survey
 }) => {
   return (
     <Wrapper>
@@ -33,14 +35,15 @@ const QuestionnaireView = ({
           cough: false,
           coughType: "dry",
           tiredness: false,
-          hasContact: false
+          hasContact: false,
+          date: new Date()
         }}
         enableReinitialize
         // validationSchema={}
         onSubmit={values => {
           delete values.hasContact;
           //user mockup
-          values.user = "5e7f79574d86c7747e369fa5";
+          values.user = "5e80dee8e7466b1f0837f5e7";
           console.log(values);
           axios.post(`http://localhost:5050/api/survey`, values);
         }}
@@ -67,7 +70,7 @@ const QuestionnaireView = ({
               >
                 <StyledSlider>
                   <StyledSlide index={0}>
-                    <QuestionCounter>Question 1/6</QuestionCounter>
+          <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
                     <Question>What is your body temperature?</Question>
                     <Input
                       name="temperature"
@@ -80,7 +83,7 @@ const QuestionnaireView = ({
                     />
                   </StyledSlide>
                   <StyledSlide index={1}>
-                    <QuestionCounter>Question 2/6</QuestionCounter>
+                    <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
                     <Question>Do you have breathing problems?</Question>
                     <ButtonWrapper>
                       <DecisionButton
@@ -102,20 +105,22 @@ const QuestionnaireView = ({
                     </ButtonWrapper>
                   </StyledSlide>
                   <StyledSlide index={2}>
-                    <QuestionCounter>Question 3/6</QuestionCounter>
+                    <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
                     <Question>Do you have a cough?</Question>
                     <ButtonWrapper>
                       <DecisionButton
                         type="button"
                         active={values.cough ? true : false}
-                        onClick={() => setFieldValue("cough", true)}
+                        onClick={() => {
+                            setFieldValue("cough", true)}}
                       >
                         Yes
                       </DecisionButton>
                       <DecisionButton
                         type="button"
                         active={values.cough ? false : true}
-                        onClick={() => setFieldValue("cough", false)}
+                        onClick={() => {
+                            setFieldValue("cough", false)}}
                       >
                         No
                       </DecisionButton>
@@ -123,7 +128,7 @@ const QuestionnaireView = ({
                   </StyledSlide>
                   {values.cough && (
                     <StyledSlide index={3}>
-                      <QuestionCounter>Question 4/6</QuestionCounter>
+                      <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
                       <Question>What type of cough do you have?</Question>
                       <ButtonWrapper>
                         <DecisionButton
@@ -144,7 +149,7 @@ const QuestionnaireView = ({
                     </StyledSlide>
                   )}
                   <StyledSlide index={4}>
-                    <QuestionCounter>Question 5/6</QuestionCounter>
+                    <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
                     <Question>Do you feel tired?</Question>
                     <ButtonWrapper>
                       <DecisionButton
@@ -164,7 +169,7 @@ const QuestionnaireView = ({
                     </ButtonWrapper>
                   </StyledSlide>
                   <StyledSlide index={5}>
-                    <QuestionCounter>Question 6/6</QuestionCounter>
+                    <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
                     <Question>
                       Did you have contact with someone during your day?
                     </Question>
@@ -185,9 +190,10 @@ const QuestionnaireView = ({
                       </DecisionButton>
                     </ButtonWrapper>
                     <ContactButton
+                      type="button"
                       variant="primary"
-                      onClick={() => setContactPeopleModal(true)}
                       hasContact={values.hasContact}
+                      onClick={() => {setContactPeopleModal(true)}}
                     >
                       Sign your friends or add email addresses of people with
                       whom you had contact
@@ -195,17 +201,24 @@ const QuestionnaireView = ({
                   </StyledSlide>
                 </StyledSlider>
                 <ButtonWrapper>
+                    <div onClick={() => questionChange(innerCurSlide - 1, !values.cough ? 5 : 6)}>
                   <StyledButtonBack
-                    onClick={() => setInnerCurSlide(innerCurSlide - 1)}
+                    onClick={() => {
+                      setInnerCurSlide(innerCurSlide - 1, 6);
+                    }}
                   >
                     Back
-                  </StyledButtonBack>
+                  </StyledButtonBack></div>
+                  <div onClick={() => questionChange(innerCurSlide + 1, !values.cough ? 5 : 6)}>
                   <StyledButtonNext
-                    onClick={() => setInnerCurSlide(innerCurSlide + 1)}
+                    onClick={() => {
+                      setInnerCurSlide(innerCurSlide + 1, 6);
+                    }}
                     disabled={isDisabled ? true : false}
                   >
                     Next
                   </StyledButtonNext>
+                  </div>
                 </ButtonWrapper>
               </CarouselProvider>
               <CenterBox isDisabled={isDisabled}>

@@ -109,7 +109,7 @@ const SelectWrapper = styled.div`
     display:block;
     flex-direction:row;
     max-width: 240px;
-    min-width: 100px;
+    min-width: 170px;
     ${({ label }) => !label && `
       height: 38px;`
   }

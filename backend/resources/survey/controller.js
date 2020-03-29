@@ -12,5 +12,14 @@ module.exports = {
         } catch (err) {
             next(err)
         }
+    },
+    getLastUserSurvey: async (req, res, next) => {
+        const { userId } = req.params
+        try {
+            const survey = await Survey.findOne({ user: userId }).sort({ date: -1 })
+            res.status(200).send(survey)
+        } catch (err) {
+            next(err)
+        }
     }
 }

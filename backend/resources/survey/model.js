@@ -8,6 +8,10 @@ const SurveySchema = new Schema(
             ref: 'user',
             required: true
         },
+        date: {
+            type: Date,
+            required: true
+        },
         temperature: {
             type: Number,
             required: false

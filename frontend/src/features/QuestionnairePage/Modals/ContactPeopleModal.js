@@ -1,142 +1,215 @@
-import React, { useState, useRef} from 'react';
-import Modal from '../../Shared/Modal';
-import styled from 'styled-components';
-import Button from '../../Shared/Button';
-import { Formik } from 'formik';
-import Select from '../../Shared/Select';
+import React, { useState, useRef, useEffect } from "react";
+import Modal from "../../Shared/Modal";
+import styled from "styled-components";
+import Button from "../../Shared/Button";
+import { Formik } from "formik";
+import Select from "../../Shared/Select";
+import Input from "../../Shared/Input";
+import axios from "axios";
 
-const ContactPeopleModal = ({ isContactPeopleModalOn, setContactPeopleModal}) => {
-    const [isAddingNewPatient, setAddingNewPatient] = useState(false);
-    const patientInput = useRef();
+const ContactPeopleModal = ({
+  isContactPeopleModalOn,
+  setContactPeopleModal
+}) => {
+  const [isAddingNewPatient, setAddingNewPatient] = useState(false);
+  const [friendsList, setFriendsList] = useState([]);
+  const [contactList, setContactList] = useState([])
+  const patientInput = useRef();
 
-    const patientNoOption = (setFieldValue) => <AddPatientNoOption>Add new app user<AddPatientButton type="button" onClick={()=> {
-        //console.log(patientInput.current.state.inputValue)
-        setFieldValue('name', patientInput.current.state.inputValue);
-        setAddingNewPatient(true);
-      }}> + </AddPatientButton></AddPatientNoOption>
+  useEffect(async () => {
+    const response = await axios.get(
+      `http://localhost:5050/api/user/5e80dee8e7466b1f0837f5e7/friends`
+    );
+    const { data } = response;
+    setFriendsList(data.friends);
+  }, []);
+  const patientNoOption = setFieldValue => (
+    <AddPatientNoOption>
+      Add new app user
+      <AddPatientButton
+        type="button"
+        onClick={() => {
+          //console.log(patientInput.current.state.inputValue)
+          setFieldValue("newUserName", patientInput.current.state.inputValue);
+          setAddingNewPatient(true);
+        }}
+      >
+        {" "}
+        +{" "}
+      </AddPatientButton>
+    </AddPatientNoOption>
+  );
 
-
-    const initialValues = {
-        peoples: []
-        // patient: '',
-    }
-    
-    return (
-        <Modal
-            title='People met today'
-            show={isContactPeopleModalOn}
-            exitButton={true}
-            onCancel={() => {
-                setContactPeopleModal(false);
-                setAddingNewPatient(false);
-            }}
-        >
-            <Formik
-                initialValues={initialValues}
-                onSubmit={async (values) => {
-                 
-                    setContactPeopleModal(false);
-                }}
-            >
-                {({
-                    values,
-                    errors,
-                    setFieldValue,
-                    setFieldError,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                }) => (
-                        <Form onSubmit={handleSubmit}>
-                            
-                            <Select 
-                        
-                            defaultValue={values.patient}
-                            name="peoples"
-                            placeholder='Choose peoples...' 
-                            // options={patients.map(patient => {return {label: patient.name, value: patient._id}})}
-                            onChange={({ value }) => setFieldValue('peoples', value)}
-                            noOptionsMessage={() => patientNoOption(setFieldValue)}
-                            error={errors.peoples}
-                             />
-                            <CenterBox>
-                                <Button type='submit' variant='primary'>Save</Button>
-                            </CenterBox>
-                        </Form>
-                    )
-                }
-            </Formik>
-        </Modal >
-    )
-}
-
-
-const dot = (color = "#ccc") => ({
-    alignItems: "center",
-    display: "flex",
-    ":before": {
-      backgroundColor: color,
-      borderRadius: 10,
-      content: '" "',
-      display: "block",
-      marginRight: 8,
-      height: 10,
-      width: 10
-    }
-  });
-  const dotColorStyles = {
-    input: styles => ({ ...styles, ...dot() }),
-    placeholder: styles => ({ ...styles, ...dot() }),
-    singleValue: (styles, { data }) => ({ ...styles, ...dot(data.color) }),
-    option: (styles, { data }) => ({ ...styles, ...dot(data.color) })
+  const initialValues = {
+    peoples: [],
+    newUserName: "",
+    newUserEmail: ""
+    // patient: '',
   };
-  
+
+  return (
+    <Modal
+      title="People met today"
+      show={isContactPeopleModalOn}
+      exitButton={true}
+      onCancel={() => {
+        setContactPeopleModal(false);
+        setAddingNewPatient(false);
+      }}
+    >
+      <Formik
+      enableReinitialize
+        initialValues={initialValues}
+        onSubmit={async values => {
+
+            const response = await axios.post('http://localhost:5050/api/usermeeting', {
+                user: "5e80dee8e7466b1f0837f5e7",
+                meetings: contactList.map(user => {return {
+                    metFriend: user._id,
+                    meetingDate: new Date()
+                }})
+            })
+            console.log(response)
+          setContactPeopleModal(false);
+        }}
+      >
+        {({
+          values,
+          errors,
+          setFieldValue,
+          setFieldError,
+          handleChange,
+          handleBlur,
+          handleSubmit
+        }) => (
+          <Form onSubmit={handleSubmit}>
+            <Select
+              ref={patientInput}
+              defaultValue={values.patient}
+              name="peoples"
+              placeholder="Choose peoples..."
+              options={friendsList.map(friend => {
+                return { label: friend.name, value: friend._id };
+              })}
+              onChange={({ label, value }) => {
+                console.log(value)
+                setContactList([...contactList, friendsList.find(el => el._id === value)])
+                setFieldValue("peoples", value)}}
+              noOptionsMessage={() => patientNoOption(setFieldValue)}
+              error={errors.peoples}
+            />
+            {contactList.map(person => <UserWrapper>
+            <UserInfo>{person.name}</UserInfo>
+            <UserInfo>{person.email}</UserInfo>
+                </UserWrapper>)}
+        
+            {isAddingNewPatient && (
+              <AddingNewWrapper>
+                <Input
+                name="newUserName"
+                  label="New app user name"
+                  value={values.newUserName}
+                  onChange={handleChange}
+                />
+                <Input
+                name="newUserEmail"
+                  label="New app user email"
+                  value={values.newUserEmail}
+                  onChange={handleChange}
+                />
+                
+                <Button
+                  type="button"
+                  variant="dark"
+                  onClick={async () => {
+                    setAddingNewPatient(false);
+                    const response = await axios.post(
+                      "http://localhost:5050/api/user",
+                      {
+                        friends: ["5e80dee8e7466b1f0837f5e7"],
+                        name: values.newUserName,
+                        email: values.newUserEmail,
+                        registered: false
+                      }
+                    );
+                    const {data} = response;
+                    setFriendsList([...friendsList, data]);
+                  }}
+                >
+                  Add +
+                </Button>
+              </AddingNewWrapper>
+            )}
+            <CenterBox>
+              <Button type="submit" variant="primary">
+                Confirm
+              </Button>
+            </CenterBox>
+          </Form>
+        )}
+      </Formik>
+    </Modal>
+  );
+};
+
 export default ContactPeopleModal;
 
 const Form = styled.form`
-    padding-top: 20px;
-    width:450px;
+  padding-top: 20px;
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
+const AddingNewWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 200px;
+  margin: 10px auto;
+`;
 const CenterBox = styled.div`
-    text-align:center;
+  text-align: center;
 `;
 
 const InputRow = styled.div`
-   display:flex;
-   justify-content:space-between;
-   >div{
-       width: 48%;
-   }
+  display: flex;
+  justify-content: space-between;
+  > div {
+    width: 48%;
+  }
 `;
-
-
-const TodayDate = styled.p`
-  font-size: 13px;
-  color: #666;
-  margin-bottom: 22px;
-  width: 48%;
-  text-align: center;
-  align-self: flex-end;
-`;
-
+ const UserWrapper = styled.div`
+     background-color: #c4c4c4;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    margin: 5px 0;
+    `
+const UserInfo = styled.p`
+color: #fff;
+margin: 0 5px;
+`
 
 const AddPatientNoOption = styled.div`
-display: flex;
-justify-content: space-around;
-align-items: center;
-`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
 const AddPatientButton = styled.button`
-    background-color: #cccccc;
-    border: 1px solid #cccccc;
-    border-radius: 50%;
-    color: #fff;
-    font-size: 20px;
-    padding: 0.25em 0.65em;
-    cursor: pointer;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`
+  background-color: #cccccc;
+  border: 1px solid #cccccc;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  padding: 0.25em 0.65em;
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
