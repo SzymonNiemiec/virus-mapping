@@ -5,24 +5,32 @@ import styled from "styled-components";
 import Input from "../Shared/Input";
 import { Formik } from 'formik';
 import Button from "../Shared/Button";
+import axios from "axios";
+import ContactPeopleModal from "./Modals/ContactPeopleModal";
 
 const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) => {
     
     return (
         <Wrapper>
+            <ContactPeopleModal 
+            />
             <Formik
                 initialValues={{
                     temperature: 36.6,
                     breathingProblems: false,
                     cough: false,
-                    coughType: false,
-                    tired: false,
+                    coughType: "dry",
+                    tiredness: false,
                     hasContact: false
                 }}
                 enableReinitialize
                 // validationSchema={}
                 onSubmit={(values) => {
+                    delete values.hasContact;
+                    //user mockup
+                    values.user = "5e7f79574d86c7747e369fa5";
                     console.log(values)
+                    axios.post(`http://localhost:5050/api/survey`, values);
                 }}
             >
                 {({
@@ -35,7 +43,7 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) =
                     handleSubmit,
                 }) => {
                     const isDisabled = ((!values.cough && innerCurSlide === 4) || (values.cough && innerCurSlide === 5));
-                    return(
+                    return (
                         <Form onSubmit={handleSubmit}>
                             <CarouselProvider
                                 naturalSlideWidth={500}
@@ -71,16 +79,16 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) =
                                         <QuestionCounter>Question 4/6</QuestionCounter>
                                         <Question>What type of cough do you have?</Question>
                                         <ButtonWrapper>
-                                            <DecisionButton type="button" active={values.coughType ? true : false} onClick={() => setFieldValue('coughType', true)}>dry</DecisionButton>
-                                            <DecisionButton type="button" active={values.coughType ? false : true} onClick={() => setFieldValue('coughType', false)}>wet</DecisionButton>
+                                            <DecisionButton type="button" active={values.coughType === "dry" ? true : false} onClick={() => setFieldValue('coughType', "dry")}>dry</DecisionButton>
+                                            <DecisionButton type="button" active={values.coughType === "dry" ? false : true} onClick={() => setFieldValue('coughType', "wet")}>wet</DecisionButton>
                                         </ButtonWrapper>
                                     </StyledSlide>}
                                     <StyledSlide index={4}>
                                         <QuestionCounter>Question 5/6</QuestionCounter>
                                         <Question>Do you feel tired?</Question>
                                         <ButtonWrapper>
-                                            <DecisionButton type="button" active={values.tired ? true : false} onClick={() => setFieldValue('tired', true)}>Yes</DecisionButton>
-                                            <DecisionButton type="button" active={values.tired ? false : true} onClick={() => setFieldValue('tired', false)}>No</DecisionButton>
+                                            <DecisionButton type="button" active={values.tiredness ? true : false} onClick={() => setFieldValue('tiredness', true)}>Yes</DecisionButton>
+                                            <DecisionButton type="button" active={values.tiredness ? false : true} onClick={() => setFieldValue('tiredness', false)}>No</DecisionButton>
                                         </ButtonWrapper>
                                     </StyledSlide>
                                     <StyledSlide index={5}>
@@ -90,25 +98,37 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) =
                                             <DecisionButton type="button" active={values.hasContact ? true : false} onClick={() => setFieldValue('hasContact', true)}>Yes</DecisionButton>
                                             <DecisionButton type="button" active={values.hasContact ? false : true} onClick={() => setFieldValue('hasContact', false)}>No</DecisionButton>
                                         </ButtonWrapper>
+                                            <ContactButton variant="primary" hasContact={values.hasContact}>Sign your friends or add email addresses of people with whom you had contact</ContactButton>
                                     </StyledSlide>
                                 </StyledSlider>
                                 <ButtonWrapper>
-                                    <StyledButtonBack onClick={() => {setInnerCurSlide(innerCurSlide - 1);  innerCurSlide === 3 ? values.cough ? questionChange(innerCurSlide - 1) : questionChange(innerCurSlide - 2) : questionChange(innerCurSlide - 1) }}>Back</StyledButtonBack>
+                                    <StyledButtonBack onClick={() => {
+                                        setInnerCurSlide(innerCurSlide - 1);
+                                        innerCurSlide === 3 ?
+                                            values.cough ?
+                                                questionChange(innerCurSlide - 1)
+                                                : 
+                                                questionChange(innerCurSlide - 2)
+                                            : 
+                                            questionChange(innerCurSlide - 1) 
+                                        }}
+                                    >Back</StyledButtonBack>
                                     <StyledButtonNext
                                         onClick={() => {
                                             setInnerCurSlide(innerCurSlide + 1);
                                             console.log(values.cough)
                                             questionChange(innerCurSlide + 1)
                                         }}
-                                        disabled={isDisabled ? true : false}>Next</StyledButtonNext>
+                                    disabled={isDisabled ? true : false}>Next</StyledButtonNext>
                                 </ButtonWrapper>
 
                             </CarouselProvider>
                             <CenterBox isDisabled={isDisabled}>
-                            <StyledButton type="submit" variant="primary" >Submit Questionnaire</StyledButton>
+                                <StyledButton type="submit" variant="secondary" >Submit Questionnaire</StyledButton>
                             </CenterBox>
                         </Form>
-                    )}
+                    )
+                }
                 }
             </Formik>
         </Wrapper>
@@ -121,6 +141,8 @@ const Wrapper = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
+width: 100%;
+height: 100vh;
 `
 
 
@@ -133,6 +155,7 @@ color: ${({ theme }) => theme.primary};
 font-size: 1.8rem;
 text-align: center;
 margin-bottom: 30px;
+font-weight: 500;
 `
 const SimpleButton = `
 background-color: #FFF8F8;
@@ -186,7 +209,7 @@ color: red;
 
 const CenterBox = styled.div`
     text-align:center;
-    ${({isDisabled}) => isDisabled === true ? `
+    ${({ isDisabled }) => isDisabled === true ? `
 visibility: visible;
 ` : `
 visibility: hidden;
@@ -196,4 +219,10 @@ visibility: hidden;
 const StyledButton = styled(Button)`
 margin-top: 20px;
 
+`
+
+const ContactButton = styled(Button)`
+max-width: 200px;
+    margin-top: 10px;
+${({hasContact}) => hasContact ? `visibility: visible;` : `visibility: hidden;`}
 `

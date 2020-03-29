@@ -6,21 +6,21 @@ import { theme } from "../Shared/theme";
 import FoodImg from "../Shared/assets/eating-together.svg";
 import AirImg from "../Shared/assets/air.svg";
 import HumansImg from "../Shared/assets/hang-out.svg";
-import {Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const HomeView = () => (<Wrapper>
     <Section header>
         <Column>
-        <HeadingTop>COVID-19</HeadingTop>
-        <HeadingMain>Keep Yourself Home Quarantined</HeadingMain>
-        <HeadingSub>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis. Nullam ut posuere erat, vel auctor mauris. Curabitur eu auctor lore</HeadingSub>
-        <StyledLink to="login"><HeaderButton variant="primary" size="big">Help to track virus</HeaderButton></StyledLink>
+            <HeadingTop>COVID-19</HeadingTop>
+            <HeadingMain>Keep Yourself Home Quarantined</HeadingMain>
+            <HeadingSub>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis. Nullam ut posuere erat, vel auctor mauris. Curabitur eu auctor lore</HeadingSub>
+            <StyledLink to="login"><HeaderButton variant="primary" size="big">Help to track virus</HeaderButton></StyledLink>
         </Column>
         <Column>
-        <HeaderImage src={HeaderImg} />
+            <HeaderImage src={HeaderImg} />
         </Column>
-       
+
     </Section>
 
     <Section spreadTitle>
@@ -29,23 +29,23 @@ const HomeView = () => (<Wrapper>
     </Section>
     <Section spreadContent>
         <Column>
-        <SpreadImage src={FoodImg}/>
-        <SpreadTitle>Contaminated Objects & Substances</SpreadTitle>
-        <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
+            <SpreadImage src={FoodImg} />
+            <SpreadTitle>Contaminated Objects & Substances</SpreadTitle>
+            <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
         </Column>
         <Column>
-        <SpreadImage src={AirImg}/>
-        <SpreadTitle>Air Transmission of Droplets</SpreadTitle>
-        <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
+            <SpreadImage src={AirImg} />
+            <SpreadTitle>Air Transmission of Droplets</SpreadTitle>
+            <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
         </Column>
         <Column>
-        <SpreadImage src={HumansImg}/>
-        <SpreadTitle>Transmission Among Humans</SpreadTitle>
-        <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
+            <SpreadImage src={HumansImg} />
+            <SpreadTitle>Transmission Among Humans</SpreadTitle>
+            <SpreadDesc>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aliquet gravida felis a venenatis.</SpreadDesc>
         </Column>
     </Section>
-    </Wrapper>
-)   
+</Wrapper>
+)
 
 
 export default HomeView;
@@ -68,7 +68,7 @@ margin: 20px;
  ${theme.mq.tablet} {
    flex-direction: row;
    margin: 2rem auto 0;
-   ${({spreadTitle}) => spreadTitle && `
+   ${({ spreadTitle }) => spreadTitle && `
 flex-direction: column;
 `}
  };
@@ -82,7 +82,7 @@ justify-content: center;
 `
 
 const HeadingTop = styled.h2`
-color: ${({theme}) => theme.primary};
+color: ${({ theme }) => theme.primary};
 font-size: 1.5rem;
 margin: 0;
 ${theme.mq.tablet} {
