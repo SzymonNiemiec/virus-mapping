@@ -17,7 +17,8 @@ const UserSchema = new Schema(
         },
         passwordHash: {
             type: String,
-            required: false
+            required: false,
+            select: false
         },
         registered: {
             type: Boolean,
@@ -36,7 +37,7 @@ const UserSchema = new Schema(
             type: String,
             required: false
         },
-        illnesses: {
+        illnesses: [{
             name: {
                 type: String,
                 enum: ['COVID-19']
@@ -44,7 +45,7 @@ const UserSchema = new Schema(
             illnessDate: {
                 type: Date
             }
-        }
+        }]
     }
 )
 
