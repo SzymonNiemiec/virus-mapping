@@ -9,9 +9,7 @@ import SurveyIcon from "../Shared/assets/survey.svg";
 
 
 
-const SidebarView = () => {
-    const percentage = 66;
-
+const SidebarView = ({percentage,questionsAnswered,questionsCount}) => {
     return (
         <SidebarWrapper>
             <SidebarProgressTitle>Today Progress</SidebarProgressTitle>
@@ -19,13 +17,13 @@ const SidebarView = () => {
                 <CircularProgressbarWithChildren value={percentage} >
                     <InsideRingContainer>
                         <PercentageText>{percentage}%</PercentageText>
-                        <QuestionsCountText>0/6</QuestionsCountText>
+    <QuestionsCountText>{questionsAnswered}/{questionsCount}</QuestionsCountText>
                     </InsideRingContainer>
                 </CircularProgressbarWithChildren>
             </ProgressRingContainer>
             <NavigationList>
-                <a href="./questionnaire"><NavigationItem><NavIcon src={SurveyIcon}/><NavText>Survey</NavText></NavigationItem></a>
-                <a href="./friends"><NavigationItem><NavIcon src={FriendsIcon}/><NavText>Friends</NavText></NavigationItem></a>
+                <a href="./questionnaire"><NavigationItem><NavIcon src={SurveyIcon} /><NavText>Survey</NavText></NavigationItem></a>
+                <a href="./friends"><NavigationItem><NavIcon src={FriendsIcon} /><NavText>Friends</NavText></NavigationItem></a>
             </NavigationList>
         </SidebarWrapper>
     )

@@ -6,7 +6,7 @@ import Input from "../Shared/Input";
 import { Formik } from 'formik';
 import Button from "../Shared/Button";
 
-const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
+const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide,questionChange }) => {
     
     return (
         <Wrapper>
@@ -93,8 +93,14 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
                                     </StyledSlide>
                                 </StyledSlider>
                                 <ButtonWrapper>
-                                    <StyledButtonBack onClick={() => setInnerCurSlide(innerCurSlide - 1)}>Back</StyledButtonBack>
-                                    <StyledButtonNext onClick={() => setInnerCurSlide(innerCurSlide + 1)} disabled={isDisabled ? true : false}>Next</StyledButtonNext>
+                                    <StyledButtonBack onClick={() => {setInnerCurSlide(innerCurSlide - 1);  innerCurSlide === 3 ? values.cough ? questionChange(innerCurSlide - 1) : questionChange(innerCurSlide - 2) : questionChange(innerCurSlide - 1) }}>Back</StyledButtonBack>
+                                    <StyledButtonNext
+                                        onClick={() => {
+                                            setInnerCurSlide(innerCurSlide + 1);
+                                            console.log(values.cough)
+                                            questionChange(innerCurSlide + 1)
+                                        }}
+                                        disabled={isDisabled ? true : false}>Next</StyledButtonNext>
                                 </ButtonWrapper>
 
                             </CarouselProvider>

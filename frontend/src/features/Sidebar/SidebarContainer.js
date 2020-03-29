@@ -1,10 +1,26 @@
 import React, { useState } from "react";
 import SidebarView from './SidebarView'
+import { connect } from "react-redux";
 
-const SidebarContainer = () => {
+const SidebarContainer = ({survey}) => {
     return (
-        <SidebarView />
+        <SidebarView percentage={survey.percentage} questionsCount={survey.questionsCount} questionsAnswered={survey.questionsAnswered} />
     )
 }
 
-export default SidebarContainer;
+
+const mapStateToProps = state => ({
+    survey: state.survey
+  });
+  
+  const mapDispatchToProps = dispatch => {
+    return {
+
+    };
+  };
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SidebarContainer);
