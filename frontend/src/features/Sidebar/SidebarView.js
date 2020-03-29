@@ -4,12 +4,13 @@ import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import FriendsIcon from "../Shared/assets/network.svg";
 import SurveyIcon from "../Shared/assets/survey.svg";
+import { withRouter } from "react-router";
 
 
 
 
 
-const SidebarView = ({percentage,questionsAnswered,questionsCount}) => {
+const SidebarView = ({percentage,questionsAnswered,questionsCount, history}) => {
     return (
         <SidebarWrapper>
             <SidebarProgressTitle>Today Progress</SidebarProgressTitle>
@@ -22,14 +23,14 @@ const SidebarView = ({percentage,questionsAnswered,questionsCount}) => {
                 </CircularProgressbarWithChildren>
             </ProgressRingContainer>
             <NavigationList>
-                <a href="./questionnaire"><NavigationItem><NavIcon src={SurveyIcon} /><NavText>Survey</NavText></NavigationItem></a>
-                <a href="./friends"><NavigationItem><NavIcon src={FriendsIcon} /><NavText>Friends</NavText></NavigationItem></a>
+                <NavigationItem onClick={()=> history.push("/questionnaire")}><NavIcon src={SurveyIcon} /><NavText>Survey</NavText></NavigationItem>
+                <NavigationItem onClick={()=> history.push("/friends")}><NavIcon src={FriendsIcon} /><NavText>Friends</NavText></NavigationItem>
             </NavigationList>
         </SidebarWrapper>
     )
 }
 
-export default SidebarView;
+export default withRouter(SidebarView);
 
 const NavigationList = styled.ul`
 width: 100%;
@@ -41,6 +42,7 @@ height: 50px;
 display: flex;
 justify-content: center;
 align-items: center;
+cursor: pointer;
 `
 
 const NavText = styled.span`
