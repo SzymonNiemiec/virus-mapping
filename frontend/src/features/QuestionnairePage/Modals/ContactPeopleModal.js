@@ -3,13 +3,13 @@ import Modal from '../../Shared/Modal';
 import styled from 'styled-components';
 import Button from '../../Shared/Button';
 import { Formik } from 'formik';
+import Select from '../../Shared/Select';
 
-
-const ContactPeopleModal = ({ isCreateModalOn, setCreateModal, patients, doctors, addPatient, companyId, addVisit, currentHealthcenter, user, selectedEvent}) => {
+const ContactPeopleModal = ({ isContactPeopleModalOn, setContactPeopleModal}) => {
     const [isAddingNewPatient, setAddingNewPatient] = useState(false);
     const patientInput = useRef();
 
-    const patientNoOption = (setFieldValue) => <AddPatientNoOption>Dodaj pacjenta<AddPatientButton type="button" onClick={()=> {
+    const patientNoOption = (setFieldValue) => <AddPatientNoOption>Add new app user<AddPatientButton type="button" onClick={()=> {
         //console.log(patientInput.current.state.inputValue)
         setFieldValue('name', patientInput.current.state.inputValue);
         setAddingNewPatient(true);
@@ -17,53 +17,25 @@ const ContactPeopleModal = ({ isCreateModalOn, setCreateModal, patients, doctors
 
 
     const initialValues = {
+        peoples: []
         // patient: '',
-        // start: moment(selectedEvent.start).format("YYYY-MM-DD HH:mm:ss"),
-        // end: moment(selectedEvent.end).format("YYYY-MM-DD HH:mm:ss"),
-        // doctorId: (!selectedEvent.roomsStatus && selectedEvent.resourceStatus) ? selectedEvent.resourceId  : '',
-        // room: (selectedEvent.roomsStatus && selectedEvent.resourceStatus) ? selectedEvent.resourceId  : '',
-        // description: '',
-        // isConfirmed: false,
     }
     
     return (
         <Modal
             title='People met today'
-            show={isCreateModalOn}
+            show={isContactPeopleModalOn}
             exitButton={true}
             onCancel={() => {
-                setCreateModal(false);
+                setContactPeopleModal(false);
                 setAddingNewPatient(false);
             }}
         >
             <Formik
                 initialValues={initialValues}
                 onSubmit={async (values) => {
-                    // let patientData;
-                    // if(isAddingNewPatient) {
-                    //     const userData = {
-                    //         companyId: companyId,
-                    //         name: values.name,
-                    //         tel: values.tel
-                    //     }
-                        
-                    //     patientData = await addPatient(companyId,userData);
-                    // }
-                    // const visitData = {
-                    //     patient: isAddingNewPatient ? patientData._id : values.patient,
-                    //     doctor: values.doctorId,
-                    //     healthcenterId: currentHealthcenter._id,
-                    //     companyId: currentHealthcenter.companyId,
-                    //     start: values.start,
-                    //     end: values.end,
-                    //     description: values.description,
-                    //     room: values.room,
-                    //     registeringPerson: user._id,
-                    //     state: "PLANNED",
-                    //     timeLogs: [{ type: "PLANNED", time: new Date().toISOString() }]
-                    // }
-                    // addVisit(visitData);
-                    setCreateModal(false);
+                 
+                    setContactPeopleModal(false);
                 }}
             >
                 {({
@@ -76,9 +48,19 @@ const ContactPeopleModal = ({ isCreateModalOn, setCreateModal, patients, doctors
                     handleSubmit,
                 }) => (
                         <Form onSubmit={handleSubmit}>
+                            
+                            <Select 
                         
+                            defaultValue={values.patient}
+                            name="peoples"
+                            placeholder='Choose peoples...' 
+                            // options={patients.map(patient => {return {label: patient.name, value: patient._id}})}
+                            onChange={({ value }) => setFieldValue('peoples', value)}
+                            noOptionsMessage={() => patientNoOption(setFieldValue)}
+                            error={errors.peoples}
+                             />
                             <CenterBox>
-                                <Button type='submit' variant='primary'>Dodaj wydarzenie</Button>
+                                <Button type='submit' variant='primary'>Save</Button>
                             </CenterBox>
                         </Form>
                     )
