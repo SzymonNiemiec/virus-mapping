@@ -6,10 +6,14 @@ import Input from "../Shared/Input";
 import { Formik } from 'formik';
 import Button from "../Shared/Button";
 import axios from "axios";
+import ContactPeopleModal from "./Modals/ContactPeopleModal";
+
 const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
 
     return (
         <Wrapper>
+            <ContactPeopleModal 
+            />
             <Formik
                 initialValues={{
                     temperature: 36.6,

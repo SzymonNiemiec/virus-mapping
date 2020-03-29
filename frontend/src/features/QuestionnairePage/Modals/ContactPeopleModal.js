@@ -1,11 +1,11 @@
-import React, { useState, useRef, forwardRef} from 'react';
+import React, { useState, useRef} from 'react';
 import Modal from '../../Shared/Modal';
 import styled from 'styled-components';
 import Button from '../../Shared/Button';
 import { Formik } from 'formik';
 
 
-const ContactPeopleModal = forwardRef(({ isCreateModalOn, setCreateModal, patients, doctors, addPatient, companyId, addVisit, currentHealthcenter, user, selectedEvent}) => {
+const ContactPeopleModal = ({ isCreateModalOn, setCreateModal, patients, doctors, addPatient, companyId, addVisit, currentHealthcenter, user, selectedEvent}) => {
     const [isAddingNewPatient, setAddingNewPatient] = useState(false);
     const patientInput = useRef();
 
@@ -28,7 +28,7 @@ const ContactPeopleModal = forwardRef(({ isCreateModalOn, setCreateModal, patien
     
     return (
         <Modal
-            title='Dodawanie wydarzenia'
+            title='People met today'
             show={isCreateModalOn}
             exitButton={true}
             onCancel={() => {
@@ -87,7 +87,7 @@ const ContactPeopleModal = forwardRef(({ isCreateModalOn, setCreateModal, patien
         </Modal >
     )
 }
-)
+
 
 const dot = (color = "#ccc") => ({
     alignItems: "center",
