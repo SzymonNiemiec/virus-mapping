@@ -8,6 +8,8 @@ router.get('/:id', controller.getOne)
 
 router.get('/user/:userId', controller.getManyByUserId)
 
+router.get('/user/:userId/last', controller.getLastUserSurvey)
+
 router.patch('/:id', controller.updateOne)
 
 router.delete('/:id', controller.removeOne)
