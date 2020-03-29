@@ -1,4 +1,5 @@
 const User = require('./model')
+const illnessService = require('../../services/illnessService')
 const crudControllers = require('../../utils/crud')
 
 module.exports = {
@@ -27,8 +28,9 @@ module.exports = {
     addIllness: async (req, res, next) => {
         const { id } = req.params
         try {
-            const updatedUser = await User.updateOne({ _id: id }, { $push: { illnesses: req.body }})
-            res.status(200).send(updatedUser)
+            await User.updateOne({ _id: id }, { $push: { illnesses: req.body }})
+            const warnedUsers = await illnessService.sendAlerts(req.body, id)
+            res.status(200).send(warnedUsers)
         } catch (err) {
             next(err)
         }
