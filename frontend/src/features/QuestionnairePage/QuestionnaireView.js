@@ -16,7 +16,7 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
                     breathingProblems: false,
                     cough: false,
                     coughType: false,
-                    tired: false,
+                    tiredness: false,
                     hasContact: false
                 }}
                 enableReinitialize
@@ -79,8 +79,8 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
                                         <QuestionCounter>Question 5/6</QuestionCounter>
                                         <Question>Do you feel tired?</Question>
                                         <ButtonWrapper>
-                                            <DecisionButton type="button" active={values.tired ? true : false} onClick={() => setFieldValue('tired', true)}>Yes</DecisionButton>
-                                            <DecisionButton type="button" active={values.tired ? false : true} onClick={() => setFieldValue('tired', false)}>No</DecisionButton>
+                                            <DecisionButton type="button" active={values.tiredness ? true : false} onClick={() => setFieldValue('tiredness', true)}>Yes</DecisionButton>
+                                            <DecisionButton type="button" active={values.tiredness ? false : true} onClick={() => setFieldValue('tiredness', false)}>No</DecisionButton>
                                         </ButtonWrapper>
                                     </StyledSlide>
                                     <StyledSlide index={5}>
@@ -115,6 +115,8 @@ const Wrapper = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
+width: 100%;
+height: 100vh;
 `
 
 
@@ -127,6 +129,7 @@ color: ${({ theme }) => theme.primary};
 font-size: 1.8rem;
 text-align: center;
 margin-bottom: 30px;
+font-weight: 500;
 `
 const SimpleButton = `
 background-color: #FFF8F8;
