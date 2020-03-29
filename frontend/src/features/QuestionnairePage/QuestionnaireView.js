@@ -5,9 +5,9 @@ import styled from "styled-components";
 import Input from "../Shared/Input";
 import { Formik } from 'formik';
 import Button from "../Shared/Button";
-
+import axios from "axios";
 const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
-    
+
     return (
         <Wrapper>
             <Formik
@@ -15,14 +15,18 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
                     temperature: 36.6,
                     breathingProblems: false,
                     cough: false,
-                    coughType: false,
+                    coughType: "dry",
                     tiredness: false,
                     hasContact: false
                 }}
                 enableReinitialize
                 // validationSchema={}
                 onSubmit={(values) => {
+                    delete values.hasContact;
+                    //user mockup
+                    values.user = "5e7f79574d86c7747e369fa5";
                     console.log(values)
+                    axios.post(`http://localhost:5050/api/survey`, values);
                 }}
             >
                 {({
@@ -35,7 +39,7 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
                     handleSubmit,
                 }) => {
                     const isDisabled = ((!values.cough && innerCurSlide === 4) || (values.cough && innerCurSlide === 5));
-                    return(
+                    return (
                         <Form onSubmit={handleSubmit}>
                             <CarouselProvider
                                 naturalSlideWidth={500}
@@ -71,8 +75,8 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
                                         <QuestionCounter>Question 4/6</QuestionCounter>
                                         <Question>What type of cough do you have?</Question>
                                         <ButtonWrapper>
-                                            <DecisionButton type="button" active={values.coughType ? true : false} onClick={() => setFieldValue('coughType', true)}>dry</DecisionButton>
-                                            <DecisionButton type="button" active={values.coughType ? false : true} onClick={() => setFieldValue('coughType', false)}>wet</DecisionButton>
+                                            <DecisionButton type="button" active={values.coughType === "dry" ? true : false} onClick={() => setFieldValue('coughType', "dry")}>dry</DecisionButton>
+                                            <DecisionButton type="button" active={values.coughType === "dry" ? false : true} onClick={() => setFieldValue('coughType', "wet")}>wet</DecisionButton>
                                         </ButtonWrapper>
                                     </StyledSlide>}
                                     <StyledSlide index={4}>
@@ -90,6 +94,7 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
                                             <DecisionButton type="button" active={values.hasContact ? true : false} onClick={() => setFieldValue('hasContact', true)}>Yes</DecisionButton>
                                             <DecisionButton type="button" active={values.hasContact ? false : true} onClick={() => setFieldValue('hasContact', false)}>No</DecisionButton>
                                         </ButtonWrapper>
+                                            <ContactButton variant="primary" hasContact={values.hasContact}>Sign your friends or add email addresses of people with whom you had contact</ContactButton>
                                     </StyledSlide>
                                 </StyledSlider>
                                 <ButtonWrapper>
@@ -99,10 +104,11 @@ const QuestionnaireView = ({ innerCurSlide, setInnerCurSlide }) => {
 
                             </CarouselProvider>
                             <CenterBox isDisabled={isDisabled}>
-                            <StyledButton type="submit" variant="primary" >Submit Questionnaire</StyledButton>
+                                <StyledButton type="submit" variant="secondary" >Submit Questionnaire</StyledButton>
                             </CenterBox>
                         </Form>
-                    )}
+                    )
+                }
                 }
             </Formik>
         </Wrapper>
@@ -183,7 +189,7 @@ color: red;
 
 const CenterBox = styled.div`
     text-align:center;
-    ${({isDisabled}) => isDisabled === true ? `
+    ${({ isDisabled }) => isDisabled === true ? `
 visibility: visible;
 ` : `
 visibility: hidden;
@@ -193,4 +199,10 @@ visibility: hidden;
 const StyledButton = styled(Button)`
 margin-top: 20px;
 
+`
+
+const ContactButton = styled(Button)`
+max-width: 200px;
+    margin-top: 10px;
+${({hasContact}) => hasContact ? `visibility: visible;` : `visibility: hidden;`}
 `
