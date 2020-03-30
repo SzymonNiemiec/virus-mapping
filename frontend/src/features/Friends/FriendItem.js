@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import StatusPill from "../Shared/StatusPill";
 
 const FriendsView = ({ name, email, registered, ilnesses }) => {
     return (
@@ -11,11 +12,13 @@ const FriendsView = ({ name, email, registered, ilnesses }) => {
                 </Patient>
                 <Registered>
                     <RegisterIndicator>Registered</RegisterIndicator>
-                    <p>{registered ? 'Yes' : 'No'}</p>
+                    <StatusPill type={registered ? 'positive' : 'default'}>{registered ? 'Yes' : 'No'}</StatusPill>
+                    
                 </Registered>
                 <Registered>
                     <RegisterIndicator>Ilness</RegisterIndicator>
-                    <p>{ilnesses.length === 0 ? 'No' : 'Yes'}</p>
+                    <StatusPill type={ilnesses.length === 0 ? 'positive' : 'danger'}>{ilnesses.length === 0 ? 'No' : 'Yes'}</StatusPill>
+                   
                 </Registered>
                 <LastMeet>
                     
@@ -33,7 +36,7 @@ const LastMeet = styled.div`
 
 
 const RegisterIndicator = styled.p`
-
+text-align: center;
 `
 
 

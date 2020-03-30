@@ -5,6 +5,7 @@ import styled from 'styled-components'
 const FriendsView = ({friends}) => {
     return (
         <FriendsWrapper>
+            <FriendsTitle>Your Friendlist:</FriendsTitle>
             <FriendsList>
                 {friends?.map( friend => <FriendItem name={friend?.name} registered={friend?.registered} email={friend?.email} ilnesses={friend?.illnesses}/>)}
             </FriendsList>
@@ -27,3 +28,4 @@ const FriendsWrapper = styled.div`
     flex-direction: column
 
 `
+const FriendsTitle = styled.h1``
