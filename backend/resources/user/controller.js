@@ -5,6 +5,7 @@ const config = require('../../utils/config')
 const bcrypt = require('bcrypt')
 const emailService = require('../../services/emailService')
 const jwt = require('jsonwebtoken')
+const jwt_decode = require('jwt-decode')
 
 const makeid = length => {
     var result = "";
@@ -67,7 +68,8 @@ module.exports = {
         }
     },
     getOneFromToken: async (req, res, next) => {
-        const query = User.findOne({ _id: req.user.sub }).select('-passwordHash')
+        const decoded = jwt_decode(req.headers.authorization.split(" ")[1]);
+        const query = User.findOne({ _id: decoded.sub }).select('-passwordHash')
         const result = await query.exec()
         res.status(200).send(result)
     },
