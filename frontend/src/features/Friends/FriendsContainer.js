@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { getUserFriends, getLastSurvey } from "../../redux/modules/friends";
 import { addUserFriend } from "../../redux/modules/authentication";
 
-const FriendsContainer = ({ user, friends, getUserFriends, addUserFriend, getLastSurvey }) => {
+const FriendsContainer = ({ user, friends, getUserFriends, addUserFriend, getLastSurvey, surveyMade }) => {
   const [isFriendModalOn, setFriendModal] = useState(false);
 
   useEffect(() => {
@@ -26,13 +26,15 @@ const FriendsContainer = ({ user, friends, getUserFriends, addUserFriend, getLas
       setFriendModal={setFriendModal}
       user={user}
       addUserFriend={addUserFriend}
+      surveyMade={surveyMade}
     />
   );
 };
 
 const mapStateToProps = state => ({
   friends: state.friends.friends,
-  user: state.authentication.user
+  user: state.authentication.user,
+  surveyMade: state.friends.surveyMade
 });
 
 const mapDispatchToProps = dispatch => {

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import StatusPill from "../Shared/StatusPill";
 
-const FriendsItem = ({ name, email, registered, ilnesses }) => {
+const FriendsItem = ({ name, email, registered, ilnesses, surveyMade }) => {
     return (
         <div>
             <HistoryItem>
@@ -18,6 +18,11 @@ const FriendsItem = ({ name, email, registered, ilnesses }) => {
                 <Registered>
                     <RegisterIndicator>Ilness</RegisterIndicator>
                     <StatusPill type={ilnesses.length === 0 ? 'positive' : 'danger'}>{ilnesses.length === 0 ? 'No' : 'Yes'}</StatusPill>
+                   
+                </Registered>
+                <Registered>
+                    <RegisterIndicator>Did Survey today?</RegisterIndicator>
+                    <StatusPill type={(surveyMade?.surveyMade && surveyMade?.daysPast === 0) ? 'positive' : 'default'}>{(surveyMade?.surveyMade && surveyMade?.daysPast === 0) ? 'Yes' : `${surveyMade?.daysPast !== -1 ? `${surveyMade?.daysPast} days ago` : 'never'} `}</StatusPill>
                    
                 </Registered>
                 <LastMeet>
@@ -45,7 +50,7 @@ const HistoryItem = styled.li`
     margin:10px;
     display:grid;
     align-items:center;
-    grid-template-columns: 3fr 2fr 3fr;
+    grid-template-columns: 3fr 2fr 3fr 2fr;
     max-width:740px;
     gap:10px;
     border:1px solid #eee;

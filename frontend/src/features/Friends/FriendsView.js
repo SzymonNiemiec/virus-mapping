@@ -4,7 +4,7 @@ import styled from "styled-components";
 import AddFriendModal from "./Modals/AddFriendModal";
 import Button from "../Shared/Button";
 
-const FriendsView = ({ friends, isFriendModalOn, setFriendModal, user, addUserFriend }) => {
+const FriendsView = ({ friends, isFriendModalOn, setFriendModal, user, addUserFriend, surveyMade }) => {
   return (
     <FriendsWrapper>
         <AddFriendModal 
@@ -21,6 +21,7 @@ const FriendsView = ({ friends, isFriendModalOn, setFriendModal, user, addUserFr
             registered={friend?.registered}
             email={friend?.email}
             ilnesses={friend?.illnesses}
+            surveyMade={surveyMade?.find(el => el.friendId === friend._id)}
           />
         ))}
       </FriendsList>
