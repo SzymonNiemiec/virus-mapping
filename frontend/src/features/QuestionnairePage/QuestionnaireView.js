@@ -17,6 +17,7 @@ const QuestionnaireView = ({
   isContactPeopleModalOn,
   survey,
   todaySurveyDone,
+  setTodaySurvey,
   user,
   addUserFriend
 }) => {
@@ -47,6 +48,7 @@ const QuestionnaireView = ({
           values.user = "5e80dee8e7466b1f0837f5e7";
           console.log(values);
           axios.post(`http://localhost:5050/api/survey`, values);
+          setTodaySurvey(true);
         }}
       >
         {({
@@ -223,7 +225,7 @@ const QuestionnaireView = ({
                 </ButtonWrapper>
               </CarouselProvider>
               <CenterBox isDisabled={isDisabled}>
-                <StyledButton type="submit" variant="secondary">
+                <StyledButton type="submit" variant="orange">
                   Submit Survey
                 </StyledButton>
               </CenterBox>
@@ -243,9 +245,9 @@ export default QuestionnaireView;
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 100%;
   height: 100vh;
+    margin-top: 10%;
 `;
 
 const QuestionCounter = styled.p`
@@ -260,10 +262,12 @@ const Question = styled.p`
   font-weight: 500;
 `;
 const SimpleButton = `
-background-color: #FFF8F8;
-border: 2px solid #FFF8F8;
+background-color: #fff;
+border: 2px solid #00184c;
+color: #00184c;
 padding: 10px 15px;
 border-radius: 10px;
+font-weight: 700;
 `;
 
 const StyledButtonBack = styled(ButtonBack)`

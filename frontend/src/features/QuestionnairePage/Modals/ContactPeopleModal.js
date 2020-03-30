@@ -27,6 +27,7 @@ const ContactPeopleModal = ({
     `http://localhost:5050/api/user/${user._id}/friends`
   );
   const { data } = response;
+  
   setFriendsList(data.friends);
  }
 
@@ -70,7 +71,7 @@ const ContactPeopleModal = ({
         onSubmit={async values => {
 
             const response = await axios.post('http://localhost:5050/api/usermeeting', {
-                user: "5e80dee8e7466b1f0837f5e7",
+                user: user._id,
                 meetings: contactList.map(user => {return {
                     metFriend: user._id,
                     meetingDate: new Date()

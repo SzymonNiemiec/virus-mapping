@@ -35,7 +35,11 @@ ${({ variant, theme }) => variant === "default" ? `
     background-color: ${theme.darkGrey};
     border: 1px solid ${theme.darkGrey};
     color: #fff;
-` : ``}
+` : variant === "orange" ? `
+background-color: #ff9800;
+    border: 1px solid #ff9800;
+    color: #fff;
+`:``}
 ${({ size }) => size === "small" ? `
     padding: 6px 8px;
 ` : size === "big" ? `

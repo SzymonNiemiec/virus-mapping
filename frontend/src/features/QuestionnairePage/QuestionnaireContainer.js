@@ -36,6 +36,7 @@ const QuestionnaireContainer = ({ questionChange, survey,user,addUserFriend }) =
       setContactPeopleModal={setContactPeopleModal}
       survey={survey}
       todaySurveyDone={todaySurveyDone}
+      setTodaySurvey={setTodaySurvey}
       user={user}
       addUserFriend={addUserFriend}
     />
