@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import QuestionnaireView from "./QuestionnaireView";
 import { questionChange } from "../../redux/modules/survey";
+import { addUserFriend } from "../../redux/modules/authentication";
 import { connect } from "react-redux";
 import axios from "axios";
 
-const QuestionnaireContainer = ({ questionChange, survey }) => {
+const QuestionnaireContainer = ({ questionChange, survey,user,addUserFriend }) => {
   const [innerCurSlide, setInnerCurSlide] = useState(0);
   const [isContactPeopleModalOn, setContactPeopleModal] = useState(false);
   const [todaySurveyDone, setTodaySurvey] = useState(false);
@@ -36,18 +37,22 @@ const QuestionnaireContainer = ({ questionChange, survey }) => {
       survey={survey}
       todaySurveyDone={todaySurveyDone}
       setTodaySurvey={setTodaySurvey}
+      user={user}
+      addUserFriend={addUserFriend}
     />
   );
 };
 
 const mapStateToProps = state => ({
-  survey: state.survey
+  survey: state.survey,
+  user: state.authentication.user
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     questionChange: (questionNumber, questionsCount) =>
-      dispatch(questionChange(questionNumber, questionsCount))
+      dispatch(questionChange(questionNumber, questionsCount)),
+    addUserFriend: friendId => dispatch(addUserFriend(friendId))
   };
 };
 

@@ -9,7 +9,9 @@ import axios from "axios";
 
 const ContactPeopleModal = ({
   isContactPeopleModalOn,
-  setContactPeopleModal
+  setContactPeopleModal,
+  user,
+  addUserFriend
 }) => {
   const [isAddingNewPatient, setAddingNewPatient] = useState(false);
   const [friendsList, setFriendsList] = useState([]);
@@ -22,9 +24,10 @@ const ContactPeopleModal = ({
 
  const setSelectOptions = async () => {
   const response = await axios.get(
-    `http://localhost:5050/api/user/5e80dee8e7466b1f0837f5e7/friends`
+    `http://localhost:5050/api/user/${user._id}/friends`
   );
   const { data } = response;
+  
   setFriendsList(data.friends);
  }
 
@@ -68,7 +71,7 @@ const ContactPeopleModal = ({
         onSubmit={async values => {
 
             const response = await axios.post('http://localhost:5050/api/usermeeting', {
-                user: "5e80dee8e7466b1f0837f5e7",
+                user: user._id,
                 meetings: contactList.map(user => {return {
                     metFriend: user._id,
                     meetingDate: new Date()
@@ -94,7 +97,7 @@ const ContactPeopleModal = ({
               defaultValue={values.patient}
               name="peoples"
               placeholder="Choose peoples..."
-              options={friendsList.map(friend => {
+              options={friendsList?.map(friend => {
                 return { label: friend.name, value: friend._id };
               })}
               onChange={({ label, value }) => {
@@ -134,7 +137,7 @@ const ContactPeopleModal = ({
                     const response = await axios.post(
                       "http://localhost:5050/api/user",
                       {
-                        friends: ["5e80dee8e7466b1f0837f5e7"],
+                        friends: [user._id],
                         name: values.newUserName,
                         email: values.newUserEmail,
                         registered: false
@@ -142,7 +145,8 @@ const ContactPeopleModal = ({
                     );
                     const {data} = response;
                     setFriendsList([...friendsList, data]);
-                    axios.patch(`http://localhost:5050/api/user/5e80dee8e7466b1f0837f5e7/friends`, [data._id])
+                    addUserFriend(data._id)
+                    axios.patch(`http://localhost:5050/api/user/${user._id}/friends`, [data._id])
                   }}
                 >
                   Add +
