@@ -67,16 +67,16 @@ const SidebarView = ({
       </ProgressRingContainer>
       <NavigationList>
         <NavigationItem>
-          <Link to="/questionnaire">
+          <StyledLink to="/questionnaire">
             <NavIcon src={SurveyIcon} />
             <NavText>Survey</NavText>
-          </Link>
+          </StyledLink>
         </NavigationItem>
         <NavigationItem>
-          <Link to="/friends">
+          <StyledLink to="/friends">
             <NavIcon src={FriendsIcon} />
             <NavText>Friends</NavText>
-          </Link>
+          </StyledLink>
         </NavigationItem>
       </NavigationList>
       <LogoutButton
@@ -95,13 +95,18 @@ const SidebarView = ({
 
 export default withRouter(SidebarView);
 
+const StyledLink = styled(Link)`
+text-decoration: none;
+display: flex;
+    align-items: center;
+`
 const NavigationList = styled.ul`
   width: 100%;
   margin-top: 20px;
 `;
 
 const NavigationItem = styled.li`
-  height: 50px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;

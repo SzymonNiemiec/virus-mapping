@@ -16,7 +16,7 @@ function App({checkToken}) {
       <Helmet>
         <meta charSet="utf-8" />
         <title>Virus mapping</title>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Roboto:400,500,700&display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800|Roboto:400,500,700&display=swap" rel="stylesheet"/>
       </Helmet>
       <AppRouter/>
     </ThemeProvider>

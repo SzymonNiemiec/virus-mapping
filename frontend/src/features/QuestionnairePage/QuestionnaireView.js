@@ -209,6 +209,7 @@ const QuestionnaireView = ({
                     onClick={() => {
                       setInnerCurSlide(innerCurSlide - 1, 6);
                     }}
+                    disabled={innerCurSlide === 0 ? true : false}
                   >
                     Back
                   </StyledButtonBack></div>
@@ -272,10 +273,20 @@ font-weight: 700;
 
 const StyledButtonBack = styled(ButtonBack)`
   ${SimpleButton};
+  ${({disabled}) => disabled && `
+  color: #C4C4C4;
+  border-color: #C4C4C4;
+  cursor: not-allowed;
+  `}
 `;
 
 const StyledButtonNext = styled(ButtonNext)`
   ${SimpleButton};
+  ${({disabled}) => disabled && `
+  color: #C4C4C4;
+  border-color: #C4C4C4;
+  cursor: not-allowed;
+  `}
 `;
 
 const StyledSlider = styled(Slider)`
@@ -302,18 +313,21 @@ const ButtonWrapper = styled.div`
 
 const Form = styled.form`
   padding-top: 20px;
-  width: 450px;
+  width: auto;
 `;
 
 const DecisionButton = styled.button`
   padding: 10px 20px;
   border-radius: 10px;
-  background-color: #dadce0;
-  border: 1px solid #dadce0;
+  background-color: #fff;
+  border: 2px solid ${({theme}) => theme.secondary};
+  color: black;
   ${({ active }) =>
     active &&
     `
 color: red;
+background-color: #00184C;
+font-weight: 800;
 `}
 `;
 
