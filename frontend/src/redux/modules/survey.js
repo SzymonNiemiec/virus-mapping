@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         questionsAnswered: action.questionNumber,
-        percentage: Math.round(action.questionNumber / action.questionsCount * 100),
+        percentage: Math.round(action.questionNumber / (action.questionsCount - 1) * 100),
         questionsCount: action.questionsCount,
       };
     default:

@@ -13,7 +13,7 @@ const ContactPeopleModal = ({
 }) => {
   const [isAddingNewPatient, setAddingNewPatient] = useState(false);
   const [friendsList, setFriendsList] = useState([]);
-  const [contactList, setContactList] = useState([])
+  const [contactList, setContactList] = useState([]);
   const patientInput = useRef();
 
   useEffect(async () => {
@@ -71,6 +71,7 @@ const ContactPeopleModal = ({
             })
             console.log(response)
           setContactPeopleModal(false);
+          setContactList([]);
         }}
       >
         {({
@@ -101,6 +102,8 @@ const ContactPeopleModal = ({
             {contactList.map(person => <UserWrapper>
             <UserInfo>{person.name}</UserInfo>
             <UserInfo>{person.email}</UserInfo>
+            {console.log(person, contactList)}
+            <p onClick={() => setContactList(contactList.filter(el => el._id !== person._id))}>X</p>
                 </UserWrapper>)}
         
             {isAddingNewPatient && (
