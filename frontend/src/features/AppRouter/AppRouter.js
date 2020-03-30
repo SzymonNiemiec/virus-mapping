@@ -10,7 +10,7 @@ import QuestionnaireContainer from "../QuestionnairePage/QuestionnaireContainer"
 import SidebarContainer from '../Sidebar/SidebarContainer';
 import FriendsContainer from '../Friends/FriendsContainer';
 import {connect} from 'react-redux';
-
+import RegisterContainer from "../RegisterPage/RegisterContainer";
 function AppRouter({ isAuth, user, loading }) {
   return (
     <Router>
@@ -34,6 +34,7 @@ function AppRouter({ isAuth, user, loading }) {
         <Switch>
             <Route path="/" exact component={HomeContainer} />
             <UnauthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/login" exact component={LoginContainer} />
+            <UnauthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/sign-up" exact component={RegisterContainer} />
             <AuthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/questionnaire" exact component={QuestionnaireContainer} />
             <AuthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/friends" exact component={FriendsContainer} />
           {/* <AuthenticatedRoute path="/" exact component={user.activeRole === "Doctor" ? DoctorDashboardContainer : user.activeRole === "Admin" ? AdminDashboardContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />

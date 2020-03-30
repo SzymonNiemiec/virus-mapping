@@ -8,6 +8,10 @@ const TOKEN_AUTH_REQUEST = "TOKEN_AUTH_REQUEST";
 const TOKEN_AUTH_SUCCESS = "TOKEN_AUTH_SUCCESS";
 const LOGOUT_USER = "LOGOUT_USER";
 
+const SIGNUP_USER_REQUEST = "SIGNUP_USER_REQUEST";
+const SIGNUP_USER_SUCCESS = "SIGNUP_USER_SUCCESS";
+const SIGNUP_USER_FAIL = "SIGNUP_USER_FAIL";
+
 export const logoutUser = () => ({
     type: LOGOUT_USER
   });
@@ -79,6 +83,31 @@ export const authenticateUser = user => async dispatch => {
     payload: error
   });
 
+  export const signUp = user => async dispatch => {
+    dispatch(requestSignUp());
+    try {
+      const response = await axios.post("/user/register", user);
+      dispatch(signUpSuccess(response.data.user));
+    } catch (error) {
+      dispatch(signUpFail(error));
+      throw error.response.data.message;
+    }
+  };
+  
+  const requestSignUp = () => ({
+    type: SIGNUP_USER_REQUEST
+  });
+  
+  const signUpSuccess = user => ({
+    type: SIGNUP_USER_SUCCESS,
+    payload: user
+  });
+  
+  const signUpFail = error => ({
+    type: SIGNUP_USER_FAIL,
+    payload: error
+  });
+
 const initialState = {
   isAuthenticated: false,
   user: {},
@@ -111,7 +140,23 @@ export default (state = initialState, action) => {
         error: action.payload,
         loading: false
       };
+      case SIGNUP_USER_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case SIGNUP_USER_SUCCESS:
+      return {
+        ...state,
 
+        loading: false
+      };
+    case SIGNUP_USER_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
+      };
       case TOKEN_AUTH_REQUEST:
         return {
           ...state,

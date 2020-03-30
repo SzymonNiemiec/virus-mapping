@@ -5,18 +5,20 @@ import { Formik } from "formik";
 import Button from "../Shared/Button";
 import MedicalResearchImg from "../Shared/assets/medical-research.svg";
 import { theme } from "../Shared/theme";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email")
-      .required("Email is required"),
-    password: Yup.string()
-      .required("Password is required")
-  });
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Email is required"),
+  name: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Name is required")
+});
 
-const LoginView = ({ authenticateUser }) => (
+const RegisterView = ({ signUp, history }) => (
   <Wrapper>
     <Column image>
       <MedicalResearchImage src={MedicalResearchImg} />
@@ -25,12 +27,17 @@ const LoginView = ({ authenticateUser }) => (
       <Formik
         initialValues={{
           email: "",
-          password: ""
+          name: ""
         }}
         validationSchema={validationSchema}
         onSubmit={values => {
           console.log(values);
-          authenticateUser(values);
+          signUp({
+            email: values.email,
+            name: values.name
+          });
+          // authenticateUser(values)
+          history.push("/login");
         }}
       >
         {({
@@ -45,7 +52,7 @@ const LoginView = ({ authenticateUser }) => (
           <Form onSubmit={handleSubmit}>
             <Title>
               Hello,
-              <br /> Welcome back
+              <br /> Nice to see you
             </Title>
             <Input
               name="email"
@@ -56,37 +63,32 @@ const LoginView = ({ authenticateUser }) => (
               onChange={handleChange}
             />
             <Input
-              name="password"
-              type="password"
-              label="Password"
-              value={values.password}
-              error={errors.password}
+              name="name"
+              type="name"
+              label="Name"
+              value={values.name}
+              error={errors.name}
               onChange={handleChange}
             />
             <CenterBox>
               <StyledButton type="submit" variant="primary">
-                Login
+                Sign up
               </StyledButton>
             </CenterBox>
-            <Divider>or</Divider>
-           
-            <Link to="sign-up"><StyledButton type="button">
-            Create an account
-              </StyledButton></Link>
           </Form>
         )}
       </Formik>
+      <Info>The password will be sent to your email address</Info>
     </Column>
   </Wrapper>
 );
 
-export default LoginView;
+export default withRouter(RegisterView);
 
-const FacebookBtnContainer = styled.div`
-  display: flex;
-  justify-content: center;
+const Info = styled.p`
+  text-align: center;
+  margin: 20px auto;
 `;
-
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
@@ -124,10 +126,6 @@ display: none;`}
       `
 display: block;`}
   }
-`;
-const Divider = styled.p`
-  text-align: center;
-  margin: 20px 0;
 `;
 
 const Title = styled.h1`
