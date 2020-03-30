@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import StatusPill from "../Shared/StatusPill";
 
-const FriendsView = ({ name, email, registered, ilnesses }) => {
+const FriendsItem = ({ name, email, registered, ilnesses }) => {
     return (
         <div>
             <HistoryItem>
@@ -28,7 +28,7 @@ const FriendsView = ({ name, email, registered, ilnesses }) => {
     )
 }
 
-export default FriendsView;
+export default FriendsItem;
 
 const LastMeet = styled.div`
 
