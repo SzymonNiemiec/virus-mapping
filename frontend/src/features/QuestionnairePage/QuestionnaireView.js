@@ -32,7 +32,7 @@ const QuestionnaireView = ({
           hasContact: false,
           date: new Date()
         }}
-        enableReinitialize
+
         // validationSchema={}
         onSubmit={values => {
           delete values.hasContact;
@@ -64,7 +64,7 @@ const QuestionnaireView = ({
               >
                 <StyledSlider>
                   <StyledSlide index={0}>
-          <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
+          <QuestionCounter>Question {survey.questionsAnswered+1}/{survey.questionsCount}</QuestionCounter>
                     <Question>What is your body temperature?</Question>
                     <Input
                       name="temperature"
@@ -77,7 +77,7 @@ const QuestionnaireView = ({
                     />
                   </StyledSlide>
                   <StyledSlide index={1}>
-                    <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
+                    <QuestionCounter>Question {survey.questionsAnswered+1}/{survey.questionsCount}</QuestionCounter>
                     <Question>Do you have breathing problems?</Question>
                     <ButtonWrapper>
                       <DecisionButton
@@ -99,7 +99,7 @@ const QuestionnaireView = ({
                     </ButtonWrapper>
                   </StyledSlide>
                   <StyledSlide index={2}>
-                    <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
+                    <QuestionCounter>Question {survey.questionsAnswered+1}/{survey.questionsCount}</QuestionCounter>
                     <Question>Do you have a cough?</Question>
                     <ButtonWrapper>
                       <DecisionButton
@@ -122,7 +122,7 @@ const QuestionnaireView = ({
                   </StyledSlide>
                   {values.cough && (
                     <StyledSlide index={3}>
-                      <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
+                      <QuestionCounter>Question {survey.questionsAnswered+1}/{survey.questionsCount}</QuestionCounter>
                       <Question>What type of cough do you have?</Question>
                       <ButtonWrapper>
                         <DecisionButton
@@ -143,7 +143,7 @@ const QuestionnaireView = ({
                     </StyledSlide>
                   )}
                   <StyledSlide index={4}>
-                    <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
+                    <QuestionCounter>Question {survey.questionsAnswered+1}/{survey.questionsCount}</QuestionCounter>
                     <Question>Do you feel tired?</Question>
                     <ButtonWrapper>
                       <DecisionButton
@@ -163,7 +163,7 @@ const QuestionnaireView = ({
                     </ButtonWrapper>
                   </StyledSlide>
                   <StyledSlide index={5}>
-                    <QuestionCounter>Question {survey.questionsAnswered}/{survey.questionsCount}</QuestionCounter>
+                    <QuestionCounter>Question {survey.questionsAnswered+1}/{survey.questionsCount}</QuestionCounter>
                     <Question>
                       Did you have contact with someone during your day?
                     </Question>
@@ -267,6 +267,9 @@ const StyledButtonNext = styled(ButtonNext)`
 const StyledSlider = styled(Slider)`
   width: 500px;
   height: 500px;
+  .carousel__slide-focus-ring {
+    display: none;
+  }
 `;
 const StyledSlide = styled(Slide)`
   > div {

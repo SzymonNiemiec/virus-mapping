@@ -18,7 +18,7 @@ const SidebarView = ({percentage,questionsAnswered,questionsCount, history}) => 
                 <CircularProgressbarWithChildren value={percentage} >
                     <InsideRingContainer>
                         <PercentageText>{percentage}%</PercentageText>
-    <QuestionsCountText>{questionsAnswered}/{questionsCount}</QuestionsCountText>
+    <QuestionsCountText>{questionsAnswered+1}/{questionsCount}</QuestionsCountText>
                     </InsideRingContainer>
                 </CircularProgressbarWithChildren>
             </ProgressRingContainer>
