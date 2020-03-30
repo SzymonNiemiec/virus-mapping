@@ -1,8 +1,12 @@
 import React from 'react';
+import FriendItem from './FriendItem'
 
-const FriendsView = () => {
+const FriendsView = ({friends}) => {
     return (
-        <p>Friends</p>
+        <div>
+            {friends?.map( friend => <FriendItem name={friend?.name}/>)}
+
+        </div>
     )
 }
 

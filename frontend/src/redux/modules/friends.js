@@ -13,7 +13,7 @@ export const getUserFriends = userId => async dispatch =>{
             `http://localhost:5050/api/user/${userId}/friends`
           );
           const { data } = response;
-          getUserFriendsSuccess(data.friends);
+          dispatch(getUserFriendsSuccess(data.friends));
     } catch (err){
         console.log(err)
     }
@@ -27,13 +27,6 @@ const getUserFriendsSuccess = friends => ({
     type: GET_USER_FRIENDS_SUCCESS,
     payload:friends
 })
-
-export const questionChange = (questionNumber, questionsCount) => ({
-    type: CHANGE_QUESTION,
-    questionNumber: questionNumber,
-    questionsCount: questionsCount
-})
-
 
 const initialState = {
   loading: false,
