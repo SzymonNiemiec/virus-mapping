@@ -16,11 +16,15 @@ const QuestionnaireView = ({
   setContactPeopleModal,
   isContactPeopleModalOn,
   survey,
-  todaySurveyDone
+  todaySurveyDone,
+  user,
+  addUserFriend
 }) => {
   return (
     <Wrapper>
       <ContactPeopleModal
+      user={user}
+      addUserFriend={addUserFriend}
         isContactPeopleModalOn={isContactPeopleModalOn}
         setContactPeopleModal={setContactPeopleModal}
       />

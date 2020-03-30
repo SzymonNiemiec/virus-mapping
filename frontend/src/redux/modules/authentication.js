@@ -45,6 +45,13 @@ const tokenAuthFailed = (error) => ({
     payload: user
   });
 
+const ADD_USER_FRIEND = "ADD_USER_FRIEND"
+
+export const addUserFriend = (friendId) => ({
+    type: ADD_USER_FRIEND,
+    payload: friendId
+})
+
 export const authenticateUser = user => async dispatch => {
     dispatch(requestAuthentication());
     try {
@@ -81,6 +88,11 @@ const initialState = {
 //AUTH REDUCER--------------------------------------------------
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ADD_USER_FRIEND:
+        return{
+            ...state,
+            user: {...state.user, friends: [...state.user.friends, action.payload]}
+        }
     case AUTHENTICATE_USER_REQUEST:
       return {
         ...state,
