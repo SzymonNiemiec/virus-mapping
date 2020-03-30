@@ -16,7 +16,8 @@ const QuestionnaireView = ({
   setContactPeopleModal,
   isContactPeopleModalOn,
   survey,
-  todaySurveyDone
+  todaySurveyDone,
+  setTodaySurvey
 }) => {
   return (
     <Wrapper>
@@ -43,6 +44,7 @@ const QuestionnaireView = ({
           values.user = "5e80dee8e7466b1f0837f5e7";
           console.log(values);
           axios.post(`http://localhost:5050/api/survey`, values);
+          setTodaySurvey(true);
         }}
       >
         {({

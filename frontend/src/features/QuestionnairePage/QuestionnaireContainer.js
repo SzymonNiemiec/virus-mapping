@@ -35,6 +35,7 @@ const QuestionnaireContainer = ({ questionChange, survey }) => {
       setContactPeopleModal={setContactPeopleModal}
       survey={survey}
       todaySurveyDone={todaySurveyDone}
+      setTodaySurvey={setTodaySurvey}
     />
   );
 };

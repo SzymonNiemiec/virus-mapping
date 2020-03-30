@@ -34,8 +34,8 @@ function AppRouter({ isAuth, user, loading }) {
         <Switch>
             <Route path="/" exact component={HomeContainer} />
             <UnauthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/login" exact component={LoginContainer} />
-            <AuthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/questionnaire" exact component={QuestionnaireContainer} />
-            <AuthenticatedRoute isAuthenticated={isAuth} loading={loading} path="/friends" exact component={FriendsContainer} />
+            <Route isAuthenticated={isAuth} loading={loading} path="/questionnaire" exact component={QuestionnaireContainer} />
+            <Route isAuthenticated={isAuth} loading={loading} path="/friends" exact component={FriendsContainer} />
           {/* <AuthenticatedRoute path="/" exact component={user.activeRole === "Doctor" ? DoctorDashboardContainer : user.activeRole === "Admin" ? AdminDashboardContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />
           <AuthenticatedRoute path="/calendar" exact component={user.activeRole === "Doctor" ? DoctorCalendarContainer : ReceptionistCalendarContainer} isAuthenticated={isAuthenticated} loading={loading} />
           <AuthenticatedRoute path="/patients/:patientId?/:currentTab?" exact component={user.activeRole === "Doctor" ? DoctorPatientInfoContainer : ReceptionistPatientInfoContainer} isAuthenticated={isAuthenticated} loading={loading} />

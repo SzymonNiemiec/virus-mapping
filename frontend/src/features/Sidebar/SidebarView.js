@@ -9,10 +9,10 @@ import { withRouter } from "react-router";
 import Button from "../Shared/Button";
 
 
-const SidebarView = ({logoutUser,percentage,questionsAnswered,questionsCount, history}) => {
+const SidebarView = ({logoutUser,percentage,questionsAnswered,questionsCount, history, coronavirusFound}) => {
     return (
         <SidebarWrapper>
-           
+           <CoronaButton variant="primary" onClick={() => coronavirusFound()}>I was found to have a coronavirus</CoronaButton>
             <SidebarProgressTitle>Today Progress</SidebarProgressTitle>
             <ProgressRingContainer>
                 <CircularProgressbarWithChildren value={percentage} >
@@ -90,4 +90,9 @@ const NavIcon = styled.img`
 const LogoutButton = styled(Button)`
     margin: 10px auto;
     display: block;
+`
+
+const CoronaButton = styled(Button)`
+display: block;
+    margin: 20px auto;
 `
