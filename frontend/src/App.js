@@ -1,10 +1,16 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { theme } from "./features/Shared/theme";
 import { ThemeProvider } from "styled-components";
 import { Helmet } from "react-helmet";
 import AppRouter from './features/AppRouter/AppRouter';
+import {checkToken} from './redux/modules/authentication';
+import {connect} from 'react-redux';
 
-function App() {
+function App({checkToken}) {
+  useEffect(()=>{
+    checkToken()
+  },[])
+
   return (
     <ThemeProvider theme={theme}>
       <Helmet>
@@ -16,5 +22,18 @@ function App() {
     </ThemeProvider>
   );
 }
+const mapStateToProps = state => ({
+  
+})
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return{
+    checkToken : () => dispatch(checkToken(sessionStorage.getItem("jwtToken")))
+  }
+}
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

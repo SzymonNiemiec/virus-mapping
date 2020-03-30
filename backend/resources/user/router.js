@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const controller = require('./controller')
+router.get('/token', controller.getOneFromToken)
 
 router.post('/', controller.createOne)
 
@@ -15,5 +16,10 @@ router.patch('/:id/friends', controller.addFriends)
 router.patch('/:id/illness', controller.addIllness)
 
 router.delete('/:id', controller.removeOne)
+
+
+router.post('/login', controller.authenticate)
+router.post('/register', controller.register)
+
 
 module.exports = router

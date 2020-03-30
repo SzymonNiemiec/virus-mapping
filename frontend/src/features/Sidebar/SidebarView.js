@@ -5,13 +5,14 @@ import 'react-circular-progressbar/dist/styles.css';
 import FriendsIcon from "../Shared/assets/network.svg";
 import SurveyIcon from "../Shared/assets/survey.svg";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 
 
-
-const SidebarView = ({percentage,questionsAnswered,questionsCount}) => {
+const SidebarView = ({logoutUser,percentage,questionsAnswered,questionsCount, history}) => {
     return (
         <SidebarWrapper>
+            <button onClick={() => {logoutUser();sessionStorage.removeItem("jwtToken"); history.push('/login')}}>Logout</button>
             <SidebarProgressTitle>Today Progress</SidebarProgressTitle>
             <ProgressRingContainer>
                 <CircularProgressbarWithChildren value={percentage} >
@@ -29,7 +30,7 @@ const SidebarView = ({percentage,questionsAnswered,questionsCount}) => {
     )
 }
 
-export default SidebarView;
+export default withRouter(SidebarView);
 
 const NavigationList = styled.ul`
 width: 100%;

@@ -5,9 +5,8 @@ import { Formik } from 'formik';
 import Button from "../Shared/Button";
 import MedicalResearchImg from "../Shared/assets/medical-research.svg";
 import { theme } from "../Shared/theme";
-import Facebook from '../Facebook/Facebook'
 
-const LoginView = () => (
+const LoginView = ({authenticateUser}) => (
     <Wrapper>
         <Column image>
         <MedicalResearchImage src={MedicalResearchImg}/> 
@@ -21,6 +20,7 @@ const LoginView = () => (
             // validationSchema={}
             onSubmit={(values) => {
                 console.log(values)
+                authenticateUser(values)
             }}
             >
             {({
@@ -39,13 +39,6 @@ const LoginView = () => (
                         <CenterBox>
                             <StyledButton type='submit' variant='primary'>Login</StyledButton>
                         </CenterBox>
-
-
-                        <SignInText>or sign in with</SignInText>
-                        <FacebookBtnContainer>
-                        <Facebook />
-                        </FacebookBtnContainer>
-
                     </Form>
                 )
             }

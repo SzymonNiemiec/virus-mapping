@@ -4,6 +4,8 @@ const morgan = require('morgan')
 const config = require('./utils/config')
 const cors = require('cors')
 const { connect } = require('./utils/db')
+const jwt = require('./middlewares/jwt')
+
 
 const userRouter = require('./resources/user/router')
 const userMeetingRouter = require('./resources/userMeeting/router')
@@ -17,7 +19,7 @@ app.use(cors())
 app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))
-
+app.use(jwt())
 app.use('/api/user', userRouter)
 app.use('/api/usermeeting', userMeetingRouter)
 app.use('/api/survey', surveyRouter)
