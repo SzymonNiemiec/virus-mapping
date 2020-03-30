@@ -10,9 +10,10 @@ import { withRouter } from "react-router";
 
 
 
-const SidebarView = ({percentage,questionsAnswered,questionsCount, history}) => {
+const SidebarView = ({logoutUser,percentage,questionsAnswered,questionsCount, history}) => {
     return (
         <SidebarWrapper>
+            <button onClick={() => {logoutUser();sessionStorage.removeItem("jwtToken")}}>Logout</button>
             <SidebarProgressTitle>Today Progress</SidebarProgressTitle>
             <ProgressRingContainer>
                 <CircularProgressbarWithChildren value={percentage} >

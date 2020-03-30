@@ -6,7 +6,7 @@ import Button from "../Shared/Button";
 import MedicalResearchImg from "../Shared/assets/medical-research.svg";
 import { theme } from "../Shared/theme";
 
-const LoginView = () => (
+const LoginView = ({authenticateUser}) => (
     <Wrapper>
         <Column image>
         <MedicalResearchImage src={MedicalResearchImg}/> 
@@ -20,6 +20,7 @@ const LoginView = () => (
             // validationSchema={}
             onSubmit={(values) => {
                 console.log(values)
+                authenticateUser(values)
             }}
             >
             {({

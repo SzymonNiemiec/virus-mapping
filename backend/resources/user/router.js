@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const controller = require('./controller')
+router.get('/token', controller.getOneFromToken)
 
 router.post('/', controller.createOne)
 
@@ -19,6 +20,6 @@ router.delete('/:id', controller.removeOne)
 
 router.post('/login', controller.authenticate)
 router.post('/register', controller.register)
-router.get('/token', controller.getOneFromToken)
+
 
 module.exports = router

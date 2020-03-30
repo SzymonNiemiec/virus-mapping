@@ -67,7 +67,7 @@ module.exports = {
         }
     },
     getOneFromToken: async (req, res, next) => {
-        const query = User.findOne({ _id: req.user.sub }).select('-hash')
+        const query = User.findOne({ _id: req.user.sub }).select('-passwordHash')
         const result = await query.exec()
         res.status(200).send(result)
     },
