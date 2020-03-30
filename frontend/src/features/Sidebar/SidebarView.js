@@ -6,13 +6,13 @@ import FriendsIcon from "../Shared/assets/network.svg";
 import SurveyIcon from "../Shared/assets/survey.svg";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-
+import Button from "../Shared/Button";
 
 
 const SidebarView = ({logoutUser,percentage,questionsAnswered,questionsCount, history}) => {
     return (
         <SidebarWrapper>
-            <button onClick={() => {logoutUser();sessionStorage.removeItem("jwtToken"); history.push('/login')}}>Logout</button>
+           
             <SidebarProgressTitle>Today Progress</SidebarProgressTitle>
             <ProgressRingContainer>
                 <CircularProgressbarWithChildren value={percentage} >
@@ -26,6 +26,7 @@ const SidebarView = ({logoutUser,percentage,questionsAnswered,questionsCount, hi
                 <NavigationItem><Link to="/questionnaire"><NavIcon src={SurveyIcon} /><NavText>Survey</NavText></Link></NavigationItem>
                 <NavigationItem><Link to="/friends"><NavIcon src={FriendsIcon} /><NavText>Friends</NavText></Link></NavigationItem>
             </NavigationList>
+            <LogoutButton variant="dark" onClick={() => {logoutUser();sessionStorage.removeItem("jwtToken"); history.push('/login')}}>Logout</LogoutButton>
         </SidebarWrapper>
     )
 }
@@ -84,4 +85,9 @@ const NavIcon = styled.img`
     width: 30px;
     height: 30px;
     margin-right: 10px;
+`
+
+const LogoutButton = styled(Button)`
+    margin: 10px auto;
+    display: block;
 `
