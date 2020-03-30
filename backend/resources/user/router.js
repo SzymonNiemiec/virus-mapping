@@ -16,4 +16,9 @@ router.patch('/:id/illness', controller.addIllness)
 
 router.delete('/:id', controller.removeOne)
 
+
+router.post('/login', controller.authenticate)
+router.post('/register', controller.register)
+router.get('/token', controller.getOneFromToken)
+
 module.exports = router

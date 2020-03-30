@@ -5,7 +5,6 @@ import { Formik } from 'formik';
 import Button from "../Shared/Button";
 import MedicalResearchImg from "../Shared/assets/medical-research.svg";
 import { theme } from "../Shared/theme";
-import Facebook from '../Facebook/Facebook'
 
 const LoginView = () => (
     <Wrapper>
@@ -42,9 +41,6 @@ const LoginView = () => (
 
 
                         <SignInText>or sign in with</SignInText>
-                        <FacebookBtnContainer>
-                        <Facebook />
-                        </FacebookBtnContainer>
 
                     </Form>
                 )

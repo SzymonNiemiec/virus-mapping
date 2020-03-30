@@ -17,8 +17,7 @@ const UserSchema = new Schema(
         },
         passwordHash: {
             type: String,
-            required: false,
-            select: false
+            required: false
         },
         registered: {
             type: Boolean,
