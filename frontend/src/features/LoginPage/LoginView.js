@@ -6,6 +6,15 @@ import Button from "../Shared/Button";
 import MedicalResearchImg from "../Shared/assets/medical-research.svg";
 import { theme } from "../Shared/theme";
 import { Link } from "react-router-dom";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email")
+      .required("Email is required"),
+    password: Yup.string()
+      .required("Password is required")
+  });
 
 const LoginView = ({ authenticateUser }) => (
   <Wrapper>
@@ -18,7 +27,7 @@ const LoginView = ({ authenticateUser }) => (
           email: "",
           password: ""
         }}
-        // validationSchema={}
+        validationSchema={validationSchema}
         onSubmit={values => {
           console.log(values);
           authenticateUser(values);
@@ -43,6 +52,7 @@ const LoginView = ({ authenticateUser }) => (
               type="email"
               label="E-mail"
               value={values.email}
+              error={errors.email}
               onChange={handleChange}
             />
             <Input
@@ -50,6 +60,7 @@ const LoginView = ({ authenticateUser }) => (
               type="password"
               label="Password"
               value={values.password}
+              error={errors.password}
               onChange={handleChange}
             />
             <CenterBox>
