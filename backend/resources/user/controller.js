@@ -78,28 +78,47 @@ module.exports = {
         const { email, name } = req.body
         let hash
         try {
-            if (await User.findOne({ email })) {
+            const checkingUser = await User.findOne({email})
+            if (checkingUser && checkingUser.registered) {
                 throw new Error(`Email ${email} jest zajęty`)
+            } else if (checkingUser){
+                const password = makeid(10)
+                if (password) {
+                    hash = bcrypt.hashSync(password, 10)
+                }
+                checkingUser.registered = true
+                checkingUser.passwordHash = hash
+                const existingUser = await User.findByIdAndUpdate(checkingUser._id, checkingUser)
+                const userMailOptions = {
+                    to: email,
+                    subject: `Your Registration in virusmaping`,
+                    text: `Password : ${password}`
+                  };
+                  await emailService.sendEmail(userMailOptions);
+                existingUser.passwordHash = undefined
+                res.status(200).send({ message: "User Created", data: existingUser })
+            } else {
+                const password = makeid(10)
+                if (password) {
+                    hash = bcrypt.hashSync(password, 10)
+                }
+                const user = new User({
+                    email: email,
+                    passwordHash: hash,
+                    name: name,
+                    registered: true,
+                })
+                const newUser = await user.save()
+                const userMailOptions = {
+                    to: email,
+                    subject: `Your Registration in virusmaping`,
+                    text: `Password : ${password}`
+                  };
+                  await emailService.sendEmail(userMailOptions);
+                newUser.passwordHash = undefined
+                res.status(200).send({ message: "User Created", data: newUser })
             }
-            const password = makeid(10)
-            if (password) {
-                hash = bcrypt.hashSync(password, 10)
-            }
-            const user = new User({
-                email: email,
-                passwordHash: hash,
-                name: name,
-                registered: true,
-            })
-            const newUser = await user.save()
-            const userMailOptions = {
-                to: email,
-                subject: `Your Registration in virusmaping`,
-                text: `Password : ${password}`
-              };
-              await emailService.sendEmail(userMailOptions);
-            newUser.passwordHash = undefined
-            res.status(200).send({ message: "User Created", data: newUser })
+
         } catch (err) {
             next(err)
         }

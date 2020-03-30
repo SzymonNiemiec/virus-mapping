@@ -6,6 +6,37 @@ const GET_USER_FRIENDS_FAIL = "GET_USER_FRIENDS_FAIL";
 
 //ACTIONS-------------------------------------
 
+export const getLastSurvey = friendId => async dispatch => {
+    dispatch(getLastSurveyRequest())
+    try{
+        const response = await axios.get(`http://localhost:5050/api/survey/user/${friendId}/last`);
+        console.log(response.data)
+        dispatch(getLastSurveySuccess(response.data))
+    } catch (error){
+        dispatch(getLastSurveyFail(error))
+    }
+    
+    
+}
+
+const GET_LAST_SURVEY_REQUEST = "GET_LAST_SURVEY_REQUEST"
+const GET_LAST_SURVEY_SUCCESS = "GET_LAST_SURVEY_SUCCESS"
+const GET_LAST_SURVEY_FAIL = "GET_LAST_SURVEY_FAIL"
+
+const getLastSurveyRequest = () => ({
+    type: GET_LAST_SURVEY_REQUEST
+})
+
+const getLastSurveySuccess = (lastSurvey) => ({
+    type: GET_LAST_SURVEY_SUCCESS,
+    payload: lastSurvey
+})
+
+const getLastSurveyFail = (error) => ({
+    type: GET_LAST_SURVEY_FAIL,
+    payload: error
+})
+
 export const getUserFriends = userId => async dispatch =>{
     dispatch(getUserFriendsRequest())
     try{

@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import FriendsView from "./FriendsView";
 import {connect} from 'react-redux';
-import {getUserFriends} from '../../redux/modules/friends'
+import {getUserFriends,getLastSurvey} from '../../redux/modules/friends'
 
-const FriendsContainer = ({user,friends,getUserFriends}) => {
+const FriendsContainer = ({user,friends,getUserFriends,getLastSurvey}) => {
     useEffect(()=> {
         if(user.friends){
             getUserFriends(user._id)
         }
     },
     [user])
+
+    useEffect(()=> {
+        if(friends.length > 0){
+            friends.forEach(friend => getLastSurvey(friend._id))
+        }
+    },
+    [friends])
 
 
     return (
@@ -24,7 +31,8 @@ const mapStateToProps = state => ({
   
   const mapDispatchToProps = dispatch => {
     return {
-        getUserFriends: userId => dispatch(getUserFriends(userId))
+        getUserFriends: userId => dispatch(getUserFriends(userId)),
+        getLastSurvey: friendId => dispatch(getLastSurvey(friendId))
     };
   };
 export default connect(
