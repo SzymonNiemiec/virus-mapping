@@ -99,11 +99,11 @@ const ContactPeopleModal = ({
               noOptionsMessage={() => patientNoOption(setFieldValue)}
               error={errors.peoples}
             />
-            {contactList.map(person => <UserWrapper>
+            {contactList.map((person,i) => <UserWrapper key={i}>
             <UserInfo>{person.name}</UserInfo>
             <UserInfo>{person.email}</UserInfo>
             {console.log(person, contactList)}
-            <p onClick={() => setContactList(contactList.filter(el => el._id !== person._id))}>X</p>
+            <DeleteButton onClick={() => setContactList(contactList.filter(el => el._id !== person._id))}>X</DeleteButton>
                 </UserWrapper>)}
         
             {isAddingNewPatient && (
@@ -137,6 +137,7 @@ const ContactPeopleModal = ({
                     );
                     const {data} = response;
                     setFriendsList([...friendsList, data]);
+                    axios.patch(`http://localhost:5050/api/user/5e80dee8e7466b1f0837f5e7/friends`, [data._id])
                   }}
                 >
                   Add +
@@ -174,6 +175,7 @@ const AddingNewWrapper = styled.div`
 `;
 const CenterBox = styled.div`
   text-align: center;
+  margin-top: 20px;
 `;
 
 const InputRow = styled.div`
@@ -216,3 +218,9 @@ const AddPatientButton = styled.button`
   justify-content: center;
   align-items: center;
 `;
+
+const DeleteButton = styled.p`
+cursor: pointer;
+    color: red;
+    font-size: 16px;
+`

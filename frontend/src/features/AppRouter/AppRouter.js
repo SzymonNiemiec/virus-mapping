@@ -77,6 +77,6 @@ const SidebarWrapper = styled.div`
 width: 300px;
 min-width: 300px;
 border-right: 2px solid ${({ theme }) => theme.grey};
-height: calc(100vh - 60px);
+height: 100vh;
 background-color: #fff;
 `;
