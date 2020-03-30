@@ -7,6 +7,7 @@ import { Formik } from "formik";
 import Button from "../Shared/Button";
 import axios from "axios";
 import ContactPeopleModal from "./Modals/ContactPeopleModal";
+import SurveyDoneImg from "../Shared/assets/survey-done.svg";
 
 const QuestionnaireView = ({
   innerCurSlide,
@@ -14,7 +15,8 @@ const QuestionnaireView = ({
   questionChange,
   setContactPeopleModal,
   isContactPeopleModalOn,
-  survey
+  survey,
+  todaySurveyDone
 }) => {
   return (
     <Wrapper>
@@ -22,7 +24,8 @@ const QuestionnaireView = ({
         isContactPeopleModalOn={isContactPeopleModalOn}
         setContactPeopleModal={setContactPeopleModal}
       />
-      <Formik
+
+     {!todaySurveyDone ? <Formik
         initialValues={{
           temperature: 36.6,
           breathingProblems: false,
@@ -217,13 +220,16 @@ const QuestionnaireView = ({
               </CarouselProvider>
               <CenterBox isDisabled={isDisabled}>
                 <StyledButton type="submit" variant="secondary">
-                  Submit Questionnaire
+                  Submit Survey
                 </StyledButton>
               </CenterBox>
             </Form>
           );
         }}
-      </Formik>
+      </Formik> : <div>
+        <SurveyDoneImage src={SurveyDoneImg} />
+        <SurveyDoneDescription>You completed the survey today, come back tomorrow to do it again!</SurveyDoneDescription>
+        </div>}
     </Wrapper>
   );
 };
@@ -325,3 +331,16 @@ const ContactButton = styled(Button)`
   ${({ hasContact }) =>
     hasContact ? `visibility: visible;` : `visibility: hidden;`}
 `;
+
+const SurveyDoneImage = styled.img`
+width: 50%;
+    margin: 0 auto;
+    display: block;
+`
+
+const SurveyDoneDescription = styled.p`
+text-align: center;
+margin: 30px auto;
+    font-weight: 600;
+    color: ${({theme}) => theme.primary}
+`
