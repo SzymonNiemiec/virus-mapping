@@ -13,9 +13,20 @@ const surveyRouter = require('./resources/survey/router')
 
 const app = express()
 
+var whitelist = ['https://virusmaping.com']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
 app.disable('x-powered-by')
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(json())
 app.use(urlencoded({ extended: true }))
 app.use(morgan('dev'))

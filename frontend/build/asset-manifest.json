@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.js": "/static/js/main.e5e6f546.chunk.js",
+    "main.js.map": "/static/js/main.e5e6f546.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.1f1f19a3.js",
+    "runtime-main.js.map": "/static/js/runtime-main.1f1f19a3.js.map",
+    "static/css/2.b7e011de.chunk.css": "/static/css/2.b7e011de.chunk.css",
+    "static/js/2.93ecd86d.chunk.js": "/static/js/2.93ecd86d.chunk.js",
+    "static/js/2.93ecd86d.chunk.js.map": "/static/js/2.93ecd86d.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.d29394cdb9ffd8bb128339684709ea67.js": "/precache-manifest.d29394cdb9ffd8bb128339684709ea67.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.b7e011de.chunk.css.map": "/static/css/2.b7e011de.chunk.css.map",
+    "static/js/2.93ecd86d.chunk.js.LICENSE.txt": "/static/js/2.93ecd86d.chunk.js.LICENSE.txt",
+    "static/media/air.svg": "/static/media/air.5a51d13c.svg",
+    "static/media/eating-together.svg": "/static/media/eating-together.975018f1.svg",
+    "static/media/hang-out.svg": "/static/media/hang-out.33f51f1d.svg",
+    "static/media/header-img.svg": "/static/media/header-img.8dfa8f93.svg",
+    "static/media/medical-research.svg": "/static/media/medical-research.a9a245f2.svg",
+    "static/media/network.svg": "/static/media/network.568909dc.svg",
+    "static/media/survey-done.svg": "/static/media/survey-done.b08d092d.svg",
+    "static/media/survey.svg": "/static/media/survey.c0d18ec8.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1f1f19a3.js",
+    "static/css/2.b7e011de.chunk.css",
+    "static/js/2.93ecd86d.chunk.js",
+    "static/js/main.e5e6f546.chunk.js"
+  ]
+}
