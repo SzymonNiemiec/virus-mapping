@@ -24,7 +24,8 @@ export const checkToken = token => async dispatch => {
         Authorization: `Bearer ${token}`
       }
     });
-      dispatch(tokenAuthSuccess(userResponse.data))  
+      dispatch(tokenAuthSuccess(userResponse.data))
+      //axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } catch (error) {
       dispatch(tokenAuthFailed(error));
     }
@@ -50,6 +51,7 @@ export const authenticateUser = user => async dispatch => {
       const response = await axios.post("/user/login", user);
       dispatch(authenticatedSuccess(response.data.user));
       sessionStorage.setItem("jwtToken", response.data.token);
+      //axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
     } catch (error) {
       dispatch(authenticationFail(error));
       throw error.response.data.message;

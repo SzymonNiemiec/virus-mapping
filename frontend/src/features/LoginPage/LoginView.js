@@ -39,10 +39,6 @@ const LoginView = ({authenticateUser}) => (
                         <CenterBox>
                             <StyledButton type='submit' variant='primary'>Login</StyledButton>
                         </CenterBox>
-
-
-                        <SignInText>or sign in with</SignInText>
-
                     </Form>
                 )
             }
