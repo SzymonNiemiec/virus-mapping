@@ -45,7 +45,7 @@ const QuestionnaireView = ({
         onSubmit={values => {
           delete values.hasContact;
           //user mockup
-          values.user = "5e80dee8e7466b1f0837f5e7";
+          values.user = user._id;
           console.log(values);
           axios.post(`http://localhost:5050/api/survey`, values);
           setTodaySurvey(true);
@@ -198,8 +198,7 @@ const QuestionnaireView = ({
                       hasContact={values.hasContact}
                       onClick={() => {setContactPeopleModal(true)}}
                     >
-                      Sign your friends or add email addresses of people with
-                      whom you had contact
+                      With whom?
                     </ContactButton>
                   </StyledSlide>
                 </StyledSlider>

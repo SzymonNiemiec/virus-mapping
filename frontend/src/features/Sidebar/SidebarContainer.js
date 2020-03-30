@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SidebarView from "./SidebarView";
 import { connect } from "react-redux";
 import { logoutUser } from "../../redux/modules/authentication";
@@ -7,6 +7,7 @@ import { questionChange } from "../../redux/modules/survey";
 import axios from "axios";
 
 const SidebarContainer = ({ survey, logoutUser, user }) => {
+const [isDragModalOn, setDragModal] = useState(false);
   const coronavirusFound = () => {
     console.log("coronavirusFound");
     axios.patch(`http://localhost:5050/api/user/${user._id}/illness`, {
@@ -37,6 +38,8 @@ const SidebarContainer = ({ survey, logoutUser, user }) => {
       questionsCount={survey.questionsCount}
       questionsAnswered={survey.questionsAnswered}
       coronavirusFound={coronavirusFound}
+      isDragModalOn={isDragModalOn}
+      setDragModal={setDragModal}
     />
   );
 };
