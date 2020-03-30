@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import FriendsView from "./FriendsView";
 import { connect } from "react-redux";
-import { getUserFriends } from "../../redux/modules/friends";
+import { getUserFriends, getLastSurvey } from "../../redux/modules/friends";
 import { addUserFriend } from "../../redux/modules/authentication";
-const FriendsContainer = ({ user, friends, getUserFriends, addUserFriend }) => {
+
+const FriendsContainer = ({ user, friends, getUserFriends, addUserFriend, getLastSurvey }) => {
   const [isFriendModalOn, setFriendModal] = useState(false);
 
   useEffect(() => {
@@ -12,6 +13,12 @@ const FriendsContainer = ({ user, friends, getUserFriends, addUserFriend }) => {
     }
   }, [user]);
 
+  useEffect(()=> {
+    if(friends.length > 0){
+        friends.forEach(friend => getLastSurvey(friend._id))
+    }
+},
+[friends])
   return (
     <FriendsView
       friends={friends}
@@ -31,7 +38,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     getUserFriends: userId => dispatch(getUserFriends(userId)),
-    addUserFriend: friendId => dispatch(addUserFriend(friendId))
+    addUserFriend: friendId => dispatch(addUserFriend(friendId)),
+    getLastSurvey: friendId => dispatch(getLastSurvey(friendId))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsContainer);
