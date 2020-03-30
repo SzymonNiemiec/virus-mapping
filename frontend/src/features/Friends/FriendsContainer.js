@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import FriendsView from "./FriendsView";
 
 const FriendsContainer = () => {
     return (
-        <div>Hello friends</div>
+        <FriendsView/>
     )
 }
 

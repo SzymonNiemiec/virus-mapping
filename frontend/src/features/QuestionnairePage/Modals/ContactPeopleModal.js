@@ -16,13 +16,18 @@ const ContactPeopleModal = ({
   const [contactList, setContactList] = useState([]);
   const patientInput = useRef();
 
-  useEffect(async () => {
-    const response = await axios.get(
-      `http://localhost:5050/api/user/5e80dee8e7466b1f0837f5e7/friends`
-    );
-    const { data } = response;
-    setFriendsList(data.friends);
+  useEffect(() => {
+    setSelectOptions()
   }, []);
+
+ const setSelectOptions = async () => {
+  const response = await axios.get(
+    `http://localhost:5050/api/user/5e80dee8e7466b1f0837f5e7/friends`
+  );
+  const { data } = response;
+  setFriendsList(data.friends);
+ }
+
   const patientNoOption = setFieldValue => (
     <AddPatientNoOption>
       Add new app user
