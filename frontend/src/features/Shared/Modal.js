@@ -1,41 +1,54 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import SimpleQuestionModal from "../Sidebar/SimpleQuestionModal";
 
 const Modal = ({
-    show,
-    exitButton,
-    onCancel,
-    title,
-    children
+  show,
+  exitButton,
+  onCancel,
+  title,
+  children,
+  type,
+  onAccept,
+  cancelText,
+  acceptText,
+  question,reverseButtonColors
 }) => {
-    const [isShown, setShown] = useState(show);
+  const [isShown, setShown] = useState(show);
 
-    useEffect(() => {
-        setShown(show);
-    }, [show]);
+  useEffect(() => {
+    setShown(show);
+  }, [show]);
 
-    return isShown
-        ? ReactDOM.createPortal(
-            <ModalBackground>
-                <ModalContainer>
-                    {title && <Title>{title}</Title>}
-                    {exitButton && (
-                        <ExitButton
-                            onClick={() => {
-                                onCancel(show);
-                                setShown(show);
-                            }}
-                        />
-                    )}
-
-                    {children}
-
-                </ModalContainer>
-            </ModalBackground>,
-            document.getElementById("modal-root")
-        )
-        : null;
+  return isShown
+    ? ReactDOM.createPortal(
+      <ModalBackground>
+        <ModalContainer>
+          {title && <Title>{title}</Title>}
+          {exitButton && (
+            <ExitButton
+              onClick={() => {
+                onCancel(show);
+                setShown(show);
+              }}
+            />
+          )}
+          {type === "SimpleQuestionModal" ? (
+            <SimpleQuestionModal
+              reverseButtonColors={reverseButtonColors}
+              question={question}
+              acceptText={acceptText}
+              cancelText={cancelText}
+              onAccept={onAccept}
+              onCancel={onCancel}
+            />
+          ) : (children)}
+        </ModalContainer>
+      </ModalBackground>,
+      document.getElementById("modal-root")
+    )
+    : null;
 };
 
 export default Modal;

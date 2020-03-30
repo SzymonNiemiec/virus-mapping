@@ -10,6 +10,7 @@ import SurveyIcon from "../Shared/assets/survey.svg";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import Button from "../Shared/Button";
+import Modal from '../Shared/Modal';
 
 const SidebarView = ({
   logoutUser,
@@ -17,11 +18,27 @@ const SidebarView = ({
   questionsAnswered,
   questionsCount,
   history,
-  coronavirusFound
+  coronavirusFound,
+  setDragModal,
+  isDragModalOn
 }) => {
   return (
+
+
+
     <SidebarWrapper>
-      <CoronaButton variant="primary" onClick={() => coronavirusFound()}>
+            <Modal
+        type="SimpleQuestionModal"
+        show={isDragModalOn}
+        question="Are you sure about your ilness?"
+        acceptText="Yes"
+        cancelText="No"
+        onAccept={() => {coronavirusFound()
+          setDragModal(false);
+        }}
+        onCancel={() => setDragModal(false)}
+      />
+      <CoronaButton variant="primary" onClick={() => setDragModal(true)}>
         I was found to have a coronavirus
       </CoronaButton>
       <SidebarProgressTitle>Today Progress</SidebarProgressTitle>
