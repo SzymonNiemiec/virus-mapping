@@ -12,7 +12,7 @@ const QuestionnaireContainer = ({ questionChange, survey,user,addUserFriend }) =
   useEffect(() => {
     async function getLastSurvey() {
       const response = await axios.get(
-        `http://localhost:5050/api/survey/user/5e80dee8e7466b1f0837f5e7/last`
+        `http://localhost:5050/api/survey/user/${user._id}/last`
       );
       const { data } = response;
       if (new Date(data.date).toDateString() === new Date().toDateString()) {

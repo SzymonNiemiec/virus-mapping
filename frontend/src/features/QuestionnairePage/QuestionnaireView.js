@@ -198,8 +198,7 @@ const QuestionnaireView = ({
                       hasContact={values.hasContact}
                       onClick={() => {setContactPeopleModal(true)}}
                     >
-                      Sign your friends or add email addresses of people with
-                      whom you had contact
+                      With whom?
                     </ContactButton>
                   </StyledSlide>
                 </StyledSlider>

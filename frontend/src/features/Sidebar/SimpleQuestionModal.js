@@ -13,8 +13,8 @@ const SimpleQuestionModal = ({
   <Container>
     <Question>{question}</Question>
     <ButtonsContainer>
-    <Button variant={reverseButtonColors?"danger":"primary"} onClick={onAccept}>{acceptText}</Button>
-    <Button variant={reverseButtonColors?"primary":"danger"} onClick={onCancel}>
+    <Button variant="danger" onClick={onAccept}>{acceptText}</Button>
+    <Button variant="default" onClick={onCancel}>
       {cancelText}
     </Button>
     </ButtonsContainer>
