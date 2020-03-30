@@ -20,7 +20,8 @@ const ContactPeopleModal = ({
 
   useEffect(() => {
     setSelectOptions()
-  }, []);
+    console.log('loaded')
+  }, [isContactPeopleModalOn]);
 
  const setSelectOptions = async () => {
   const response = await axios.get(
